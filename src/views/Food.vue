@@ -20,27 +20,14 @@ const regions = ['東京', '新宿', '京都']
       </button>
     </div>
 
-    <!-- 東京 -->
-    <div v-if="currentRegion === '東京'">
-      <h3>東京美食</h3>
-      <div class="food-container">
-        <div class="food-card">
-          <img :src="terraceImg" />
-          <h3>燒肉 29 Terrace</h3>
-          <p>高質感和牛吃到飽套餐，視覺與味覺雙享受！</p>
-          <a href="https://maps.app.goo.gl/7xvk3Q1C68tT3f226" target="_blank">查看 Google 地圖</a>
-        </div>
-      </div>
-    </div>
-
     <!-- 新宿 -->
     <div v-if="currentRegion === '新宿'">
       <h3>新宿美食</h3>
       <div class="food-container">
         <div class="food-card">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Sushi_platter.jpg" />
-          <h3>元祖壽司 新宿西口店</h3>
-          <p>連鎖立食壽司店，價格實惠、交通方便。</p>
+          <img :src="terraceImg" />
+          <h3>燒肉 29 Terrace</h3>
+          <p>高質感和牛吃到飽套餐，視覺與味覺雙享受！</p>
           <a href="https://maps.app.goo.gl/7xvk3Q1C68tT3f226" target="_blank">查看 Google 地圖</a>
         </div>
       </div>
