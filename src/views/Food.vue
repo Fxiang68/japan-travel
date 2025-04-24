@@ -2,6 +2,14 @@
 import { ref } from 'vue'
 import terraceImg from '../assets/29terrace.png'
 import udonImg from '../assets/udon.png'
+import harbsImg from '../assets/harbs.png'
+
+
+
+
+
+
+
 
 const currentRegion = ref('東京')
 const regions = ['東京', '新宿', '京都']
@@ -41,6 +49,16 @@ const regions = ['東京', '新宿', '京都']
           <p>彈牙手打烏龍麵，排隊也值得一試的超人氣名店！</p>
           <a href="https://maps.app.goo.gl/qH7kNU4XGhBcdWfY9" target="_blank">查看 Google 地圖</a>
         </div>
+
+        <div class="food-card">
+          <img :src="harbsImg" />
+          <h3>HARBS LUMINE EST新宿店</h3>
+          <p>大人氣的水果千層蛋糕甜點</p>
+          <a href="日本〒160-0022 Tokyo, Shinjuku City, Shinjuku, 3 Chome−38−1 ルミネエスト新宿 地下 ２階" target="_blank">查看 Google 地圖</a>
+        </div>
+
+
+
 
       </div>
     </div>
