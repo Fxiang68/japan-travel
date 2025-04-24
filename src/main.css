@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'NotoSansTC';
+  src: url('/fonts/NotoSansTC-Regular.ttf') format('truetype');
+}
+body {
+  font-family: 'NotoSansTC', sans-serif;
+  background-color: #fff5f7;
+  margin: 0;
+  color: #444;
+}
