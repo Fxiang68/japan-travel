@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-import terraceImg from '../assets/29terrace.png' 
+import terraceImg from '../assets/29terrace.png'
+import udonImg from '../assets/udon.png'
 
 const currentRegion = ref('東京')
 const regions = ['東京', '新宿', '京都']
@@ -24,12 +25,23 @@ const regions = ['東京', '新宿', '京都']
     <div v-if="currentRegion === '新宿'">
       <h3>新宿美食</h3>
       <div class="food-container">
+
+        <!-- 店 1：燒肉 -->
         <div class="food-card">
           <img :src="terraceImg" />
           <h3>燒肉 29 Terrace</h3>
           <p>高質感和牛吃到飽套餐，視覺與味覺雙享受！</p>
           <a href="https://maps.app.goo.gl/7xvk3Q1C68tT3f226" target="_blank">查看 Google 地圖</a>
         </div>
+
+        <!-- 店 2：うどん 慎 -->
+        <div class="food-card">
+          <img :src="udonImg" />
+          <h3>うどん 慎</h3>
+          <p>彈牙手打烏龍麵，排隊也值得一試的超人氣名店！</p>
+          <a href="https://maps.app.goo.gl/qH7kNU4XGhBcdWfY9" target="_blank">查看 Google 地圖</a>
+        </div>
+
       </div>
     </div>
 
@@ -42,6 +54,7 @@ const regions = ['東京', '新宿', '京都']
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .region-buttons {
