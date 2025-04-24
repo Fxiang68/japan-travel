@@ -1,15 +1,18 @@
 <script setup>
 import { ref } from 'vue'
+
+// 圖片匯入（可多張）
 import terraceImg from '../assets/29terrace.png'
 import udonImg from '../assets/udon.png'
 import harbsImg from '../assets/harbs.png'
+import afuriImg from '../assets/afuri.png'
+import lemonImg from '../assets/lemon.png'
+import eggImg from '../assets/egg.png'
 
+import coffee1 from '../assets/coffee1.png'
+import coffee2 from '../assets/coffee2.png'
 
-
-
-
-
-
+const coffeeImgs = [coffee1, coffee2]
 
 const currentRegion = ref('東京')
 const regions = ['東京', '新宿', '京都']
@@ -34,7 +37,6 @@ const regions = ['東京', '新宿', '京都']
       <h3>新宿美食</h3>
       <div class="food-container">
 
-        <!-- 店 1：燒肉 -->
         <div class="food-card">
           <img :src="terraceImg" />
           <h3>燒肉 29 Terrace</h3>
@@ -42,7 +44,6 @@ const regions = ['東京', '新宿', '京都']
           <a href="https://maps.app.goo.gl/7xvk3Q1C68tT3f226" target="_blank">查看 Google 地圖</a>
         </div>
 
-        <!-- 店 2：うどん 慎 -->
         <div class="food-card">
           <img :src="udonImg" />
           <h3>うどん 慎</h3>
@@ -54,25 +55,53 @@ const regions = ['東京', '新宿', '京都']
           <img :src="harbsImg" />
           <h3>HARBS LUMINE EST新宿店</h3>
           <p>大人氣的水果千層蛋糕甜點</p>
-          <a href="日本〒160-0022 Tokyo, Shinjuku City, Shinjuku, 3 Chome−38−1 ルミネエスト新宿 地下 ２階" target="_blank">查看 Google 地圖</a>
+          <a href="https://maps.app.goo.gl/Fte6hGwsc1QB1zfk6" target="_blank">查看 Google 地圖</a>
+        </div>
+
+        <div class="food-card">
+          <img :src="afuriImg" />
+          <h3>AFURI 新宿</h3>
+          <p>AFURI阿夫利鹽柚子拉麵是多人推薦的東京美食</p>
+          <a href="https://maps.app.goo.gl/sXucYTsqfkDVuxMJ7" target="_blank">查看 Google 地圖</a>
+        </div>
+
+        <div class="food-card">
+          <img :src="lemonImg" />
+          <h3>東京牛舌の檸檬</h3>
+          <p>新宿燒肉 厚切牛舌超人氣！</p>
+          <a href="https://maps.app.goo.gl/odUJCcKZPaDd9UQ98" target="_blank">查看 Google 地圖</a>
+        </div>
+
+        <div class="food-card">
+          <img :src="eggImg" />
+          <h3>漢堡 eggslut Shinjuku Southern Terrace</h3>
+          <p>新宿早餐首選</p>
+          <a href="https://maps.app.goo.gl/d4qr3JJWewF9E5PH9" target="_blank">查看 Google 地圖</a>
+        </div>
+
+        <div class="food-card">
+          <div class="scroll-imgs">
+            <img
+              v-for="(img, index) in coffeeImgs"
+              :key="index"
+              :src="img"
+              alt="HATTO COFFEE"
+            />
+          </div>
+          <h3>HATTO COFFEE 咖啡&簡餐</h3>
+          <p>神宮前好喝咖啡，還有客製化3D奶泡</p>
+          <a href="https://maps.app.goo.gl/ncX7DQUqx334JnvU6" target="_blank">查看 Google 地圖</a>
         </div>
 
 
 
 
-      </div>
-    </div>
 
-    <!-- 京都 -->
-    <div v-if="currentRegion === '京都'">
-      <h3>京都美食</h3>
-      <div class="food-container">
-        <p>目前尚無資料，敬請期待！</p>
+        
       </div>
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .region-buttons {
@@ -114,6 +143,19 @@ const regions = ['東京', '新宿', '京都']
 .food-card img {
   width: 100%;
   border-radius: 10px;
+}
+.scroll-imgs {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  margin-bottom: 10px;
+  scroll-snap-type: x mandatory;
+}
+.scroll-imgs img {
+  height: 120px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
 }
 .food-card a {
   margin-top: 10px;
