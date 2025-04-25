@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 // 圖片匯入
 import terraceImg from '../assets/29terrace.png'
@@ -32,18 +32,40 @@ const expanded = ref({
   千代田區Minato: { bbq: true, noodles: true, rice: true, dessert: true }
 })
 
-// 簡化假地圖初始化
+// 區域經緯度
+const regionCoords = {
+  '新宿Shinjuku': { lat: 35.6938, lng: 139.7034 },
+  '澀谷Shibuya': { lat: 35.6618, lng: 139.7041 },
+  '麻布區Minato': { lat: 35.6544, lng: 139.7356 },
+  '千代田區Minato': { lat: 35.6930, lng: 139.7530 }
+}
+
+const map = ref(null)
+const marker = ref(null)
+
+// 初始化地圖
 onMounted(() => {
   if (window.google && window.google.maps) {
-    const map = new google.maps.Map(document.getElementById('map'), {
-      center: { lat: 35.6895, lng: 139.6917 },
-      zoom: 13
+    const coords = regionCoords[currentRegion.value]
+    map.value = new google.maps.Map(document.getElementById('map'), {
+      center: coords,
+      zoom: 14
     })
-    new google.maps.Marker({
-      position: { lat: 35.6895, lng: 139.6917 },
-      map,
-      title: '東京'
+    marker.value = new google.maps.Marker({
+      position: coords,
+      map: map.value,
+      title: currentRegion.value
     })
+  }
+})
+
+// 監聽地區切換更新地圖
+watch(currentRegion, (newRegion) => {
+  const coords = regionCoords[newRegion]
+  if (map.value && marker.value) {
+    map.value.setCenter(coords)
+    marker.value.setPosition(coords)
+    marker.value.setTitle(newRegion)
   }
 })
 
@@ -80,12 +102,22 @@ const foodData = {
       { img: dountImg, name: "I'm donut ?", desc: '生甜甜圈紅到東京', url: 'https://maps.app.goo.gl/y1nW1S2Bp3yaJssW8' },
       { img: cakeImg, name: 'Afternoon Tea •LOVE & TABLE', desc: '日本人氣甜點店', url: 'https://maps.app.goo.gl/qnx58rybf9K8YgUu8' }
     ]
+  },
+  麻布區Minato: {
+    bbq: [{ img: null, name: null, desc: null }],
+    noodles: [{ img: null, name: null, desc: null }],
+    rice: [{ img: null, name: null, desc: null }],
+    dessert: [{ img: null, name: null, desc: null }]
+  },
+  千代田區Minato: {
+    bbq: [{ img: null, name: null, desc: null }],
+    noodles: [{ img: null, name: null, desc: null }],
+    rice: [{ img: null, name: null, desc: null }],
+    dessert: [{ img: null, name: null, desc: null }]
   }
 }
-
-  // 其餘略...
-
 </script>
+
 
 <template>
   <div style="padding: 20px;">
