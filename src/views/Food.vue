@@ -187,32 +187,55 @@ const foodData = {
     attractions:[{img: a1Img, name: '小網神社', desc: '強運厄除、洗錢開金運',url:'https://maps.app.goo.gl/ARv8TD9dbX37rWbc6',lat: 35.6867, lng: 139.7822}]
   }
 }
+
+// 景點資料
+const attractionsData = {
+  '新宿Shinjuku': {
+    '寺廟': ['淺草寺', '明治神宮'],
+    '展望台': ['東京鐵塔', '晴空塔']
+  }
+}
+const currentRegion = ref('新宿Shinjuku')
+const currentDataType = ref('food') // 'food' 或 'attractions'
+const expandedCategories = ref({})
+
+const toggleDataType = () => {
+  currentDataType.value = currentDataType.value === 'food' ? 'attractions' : 'food'
+  expandedCategories.value = {}
+}
+
+const currentData = computed(() => {
+  return currentDataType.value === 'food' ? foodData : attractionsData
+})
+
+const currentEmoji = computed(() => {
+  return currentDataType.value === 'food' ? '🍽' : '🗼'
+})
+
+const toggleCategory = (category) => {
+  expandedCategories.value[category] = !expandedCategories.value[category]
+}
+
 </script>
 <template>
-  <div class="container">
-    <h2>地區切換</h2>
+  <div style="padding: 20px;">
+    <!-- 切換按鈕 -->
+    <button @click="toggleDataType" style="margin-bottom: 20px; padding: 8px 16px; font-size: 16px;">
+      切換到 {{ currentDataType === 'food' ? '景點 🗼' : '食物 🍽' }}
+    </button>
 
-    <div class="region-buttons">
-      <button
-        v-for="region in regions"
-        :key="region"
-        :class="{ active: currentRegion === region }"
-        @click="currentRegion = region"
-      >
-        {{ region }}
-      </button>
-    </div>
+    <!-- 分類區塊 -->
+    <div v-for="(items, category) in currentData[currentRegion]" :key="category" class="category-section">
+      <h4 class="category-title" @click="toggleCategory(category)">
+        {{ currentEmoji }} {{ category }}
+        <span v-if="expandedCategories[category]">⏷</span>
+        <span v-else>⏵</span>
+      </h4>
 
-    <div v-if="foodData[currentRegion]" class="region-content">
-      <h3>{{ currentRegion }} 美食推薦</h3>
-
-      <div v-for="(items, category) in foodData[currentRegion]" :key="category" class="category-section">
-        <h4 class="category-title" @click="toggleCategory(category)">
-          🍽 {{ category }}
-          <span v-if="expandedCategories[category]">⏷</span>
-          <span v-else>⏵</span>
-        </h4>
-
+      <!-- 展開後顯示項目 -->
+      <ul v-if="expandedCategories[category]" style="padding-left: 20px;">
+        <li v-for="item in items" :key="item">{{ item }}</li>
+      </ul>
         <div v-if="expandedCategories[category]" class="food-grid">
           <div
             v-for="(item, index) in items"
@@ -237,9 +260,8 @@ const foodData = {
             </button>
           </div>
         </div>
-      </div>
-    </div>
-    <div v-else>
+    
+      <div v-else>
       <p style="color: red;">⚠️ 找不到 {{ currentRegion }} 的美食資料，請稍後再試。</p>
     </div>
 
@@ -374,5 +396,13 @@ const foodData = {
   margin-top: 20px;
   border-radius: 12px;
   border: 1px solid #ccc;
+}
+.category-section {
+  margin-bottom: 20px;
+}
+.category-title {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
 }
 </style>
