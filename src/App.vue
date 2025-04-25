@@ -5,6 +5,7 @@
       <router-link to="/schedule" exact-active-class="active">行程表</router-link>
       <router-link to="/map" exact-active-class="active">地圖</router-link>
       <router-link to="/food" exact-active-class="active">美食推薦</router-link>
+      <router-link to="/food" exact-active-class="active">景點推薦</router-link>
     </nav>
     <router-view />
   </div>

@@ -146,10 +146,10 @@ const foodData = {
     dessert: [{ img: null, name: null, desc: null }]
   },
   '千代田區Chiyoda City': {
-    bbq: [{ img: popoImg, name: 'PATISSERIE TEN&', desc: '東京泡芙天花板', url: 'https://maps.app.goo.gl/f2pzHGDGNxT67WBD9', lat: 35.6930, lng: 139.7530 }],
+    bbq: [{ img: null, name: null, desc: null }],
     noodles: [{ img: null, name: null, desc: null }],
     rice: [{ img: null, name: null, desc: null }],
-    dessert: [{ img: null, name: null, desc: null }]
+    dessert: [{ img: popoImg, name: 'PATISSERIE TEN&', desc: '東京泡芙天花板', url: 'https://maps.app.goo.gl/f2pzHGDGNxT67WBD9', lat: 35.6930, lng: 139.7530 }]
   },
   '港區Minato City': {
     bbq: [
