@@ -1,25 +1,31 @@
 <template>
   <div class="schedule-container">
     <h2>行程表</h2>
+
+    <div class="days-switch">
+      <button
+        v-for="day in days"
+        :key="day"
+        :class="{ active: currentDay === day }"
+        @click="currentDay = day"
+      >
+        {{ day }}
+      </button>
+    </div>
+
     <div class="timeline">
       <div
         class="timeline-item"
-        v-for="(event, index) in schedule"
+        v-for="(event, index) in schedule[currentDay]"
         :key="index"
       >
         <div class="time">{{ event.time }}</div>
         <div class="content-card">
-          <img
-            v-if="event.img"
-            :src="event.img"
-            alt="event preview"
-            class="preview-img"
-          />
           <h3>{{ event.title }}</h3>
           <p>{{ event.desc }}</p>
           <button
             v-if="event.lat && event.lng"
-            @click="openGoogleMaps(event.lat, event.lng)"
+            @click.stop="openGoogleMaps(event.lat, event.lng)"
             class="nav-btn"
           >
             Google導航
@@ -33,40 +39,57 @@
 <script setup>
 import { ref } from 'vue'
 
-const schedule = ref([
-  {
-    time: '09:00',
-    title: '早餐：上島咖啡',
-    desc: '品嚐道地日式早餐',
-    img: '/images/breakfast.jpg',
-    lat: 35.6895,
-    lng: 139.6917
-  },
-  {
-    time: '10:30',
-    title: '東京巨蛋城',
-    desc: '遊樂園與購物中心',
-    img: '/images/dome.jpg',
-    lat: 35.7056,
-    lng: 139.7519
-  },
-  {
-    time: '13:00',
-    title: '午餐：利久牛舌',
-    desc: '仙台人氣牛舌專賣店',
-    img: '/images/lunch.jpg',
-    lat: 35.709,
-    lng: 139.753
-  },
-  {
-    time: '15:00',
-    title: '小石川植物園',
-    desc: '悠閒漫步賞花草',
-    img: '/images/garden.jpg',
-    lat: 35.718,
-    lng: 139.744
-  }
-])
+const schedule = ref({
+  'Day 1': [
+    {
+      time: '09:00',
+      title: '早餐：上島咖啡',
+      desc: '品嚐道地日式早餐',
+      lat: 35.6895,
+      lng: 139.6917
+    },
+    {
+      time: '10:30',
+      title: '東京巨蛋城',
+      desc: '遊樂園與購物中心',
+      lat: 35.7056,
+      lng: 139.7519
+    },
+    {
+      time: '13:00',
+      title: '午餐：利久牛舌',
+      desc: '仙台人氣牛舌專賣店',
+      lat: 35.709,
+      lng: 139.753
+    }
+  ],
+  'Day 2': [
+    {
+      time: '09:30',
+      title: '早餐：便利商店咖啡',
+      desc: '簡單快速出發',
+      lat: 35.6905,
+      lng: 139.7000
+    },
+    {
+      time: '11:00',
+      title: '小石川植物園',
+      desc: '自然生態之旅',
+      lat: 35.718,
+      lng: 139.744
+    },
+    {
+      time: '14:00',
+      title: '六義園',
+      desc: '庭園漫步',
+      lat: 35.715,
+      lng: 139.748
+    }
+  ]
+})
+
+const days = Object.keys(schedule.value)
+const currentDay = ref(days[0])
 
 const openGoogleMaps = (lat, lng) => {
   const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
@@ -77,6 +100,21 @@ const openGoogleMaps = (lat, lng) => {
 <style scoped>
 .schedule-container {
   padding: 20px;
+}
+.days-switch {
+  margin-bottom: 20px;
+}
+.days-switch button {
+  margin: 5px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 20px;
+  background-color: #eee;
+  cursor: pointer;
+}
+.days-switch button.active {
+  background-color: #7bdacc;
+  color: white;
 }
 .timeline {
   position: relative;
@@ -109,14 +147,6 @@ const openGoogleMaps = (lat, lng) => {
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   margin-top: 5px;
-}
-.preview-img {
-  width: 100%;
-  height: auto;
-  max-height: 180px;
-  border-radius: 6px;
-  margin-bottom: 10px;
-  object-fit: cover;
 }
 .nav-btn {
   margin-top: 10px;
