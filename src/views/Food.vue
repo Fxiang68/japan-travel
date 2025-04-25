@@ -221,6 +221,11 @@ const foodData = {
       </button>
 
       <div v-for="(items, category) in foodData[currentRegion]" :key="category" class="category-section">
+      <h4 class="category-title" @click="toggleCategory(currentRegion, category)">
+        🍽 {{ category }}
+        <span class="toggle-icon">{{ isExpanded(currentRegion, category) ? '▼' : '▲' }}</span>
+      </h4>
+      <div class="food-grid" v-show="isExpanded(currentRegion, category)">
         <h4 class="category-title">🍽 {{ category }}</h4>
 
         <div class="food-grid">
