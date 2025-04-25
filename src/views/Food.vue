@@ -182,7 +182,8 @@ const foodData = {
     sukiyaki: [
       { img: shisaImg, name: '人形町今半 壽喜燒', desc: '東京必吃壽喜燒名店', url: 'https://maps.app.goo.gl/Gn4ny3yh9BLzAp9Z7', lat: 35.6867, lng: 139.7818 },
       { img: shisa2Img, name: '熊本あか牛しゃぶしゃぶ 甲梅 火鍋', desc: '熊本赤牛火鍋專門店', url: 'https://maps.app.goo.gl/v3ERi35Qtq2v9BMf9', lat: 35.6870, lng: 139.7810 }
-    ]
+    ],
+    attractions:[{img: null, name: null, desc: null}]
   }
 }
 </script>
@@ -233,6 +234,20 @@ const foodData = {
             >
               Google導航
             </button>
+                </div>
+
+      <h3>{{ currentRegion }} 景點推薦</h3>
+      <div class="attractions-container">
+        <div
+          v-for="spot in foodData[currentRegion].attractions"
+          :key="spot.name"
+          class="attraction-card"
+          @click="spot.lat && spot.lng && flyToRestaurant(spot.lat, spot.lng, spot.name)"
+        >
+          <h4>{{ spot.name }}</h4>
+          <p>{{ spot.desc }}</p>
+          <button @click.stop="openGoogleMaps(spot.lat, spot.lng)">Google導航</button>
+        </div>  
           </div>
         </div>
       </div>
@@ -310,7 +325,20 @@ const foodData = {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-
+.food-card, .attraction-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #fff;
+  width: 100%;
+  max-width: 300px;
+}
+.attractions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
 /* 圖片處理 */
 .img-single {
   width: 100%;
