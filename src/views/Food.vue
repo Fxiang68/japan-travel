@@ -67,7 +67,52 @@ const defaultImg = 'https://via.placeholder.com/300x200?text=Coming+Soon'
 </script>
 
 <template>
-  <!-- Your template content goes here -->
+  <div style="padding: 20px;">
+    <h2>地區切換</h2>
+    <div class="region-buttons">
+      <button
+        v-for="region in regions"
+        :key="region"
+        :class="{ active: currentRegion === region }"
+        @click="currentRegion = region"
+      >
+        {{ region }}
+      </button>
+    </div>
+
+    <div v-for="(categories, region) in foodData" v-show="currentRegion === region">
+      <h3>{{ region }} 美食</h3>
+      <div v-for="(items, category) in categories" :key="category">
+        <h4
+          @click="expanded[region][category] = !expanded[region][category]"
+          style="cursor: pointer;"
+        >
+          🍽 {{ category }} {{ expanded[region][category] ? '▾' : '▸' }}
+        </h4>
+
+        <div v-if="expanded[region][category]" class="food-container">
+          <div
+            v-for="(item, index) in items"
+            :key="index"
+            class="food-card"
+            :class="{ upcoming: !item.name || !item.url }"
+            @click="item.lat && item.lng && flyToRestaurant(item.lat, item.lng, item.name)"
+          >
+            <div v-if="item.multiple" class="scroll-imgs">
+              <img v-for="(img, i) in item.img" :key="i" :src="img" class="img-multi" />
+            </div>
+            <img v-else :src="item.img || defaultImg" class="img-single" />
+            <h3>{{ item.name || '敬請期待' }}</h3>
+            <p>{{ item.desc || '更多資訊即將公開' }}</p>
+            <a v-if="item.url" :href="item.url" target="_blank">查看 Google 地圖</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 30px;">{{ currentRegion }} 地區地圖</h4>
+    <div id="map"></div>
+  </div>
 </template>
 
 <style scoped>
