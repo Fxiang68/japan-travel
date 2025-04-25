@@ -126,7 +126,6 @@ const foodData = {
 }
 </script>
 
-
 <template>
   <div style="padding: 20px;">
     <h2>地區切換</h2>
@@ -141,8 +140,10 @@ const foodData = {
       </button>
     </div>
 
+    <!-- 地區資料呈現 -->
     <div v-for="(categories, region) in foodData" v-show="currentRegion === region">
       <h3>{{ region }} 美食</h3>
+
       <div v-for="(items, category) in categories" :key="category">
         <h4
           @click="expanded[region][category] = !expanded[region][category]"
@@ -157,6 +158,7 @@ const foodData = {
             :key="index"
             class="food-card"
             :class="{ upcoming: !item.name || !item.url }"
+            @click="item.lat && item.lng && flyToRestaurant(item.lat, item.lng, item.name)"
           >
             <div v-if="item.multiple" class="scroll-imgs">
               <img v-for="(img, i) in item.img" :key="i" :src="img" class="img-multi" />
@@ -168,12 +170,14 @@ const foodData = {
           </div>
         </div>
       </div>
-
-      <!-- 地圖容器 -->
-      <div id="map"></div>
     </div>
+
+    <!-- ✅ 地圖放最底下 -->
+    <h4 style="margin-top: 30px;">{{ currentRegion }} 地區地圖</h4>
+    <div id="map"></div>
   </div>
 </template>
+
 
 <style scoped>
 #region-buttons {
