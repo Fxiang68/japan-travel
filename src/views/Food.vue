@@ -32,7 +32,7 @@ const regions = ['新宿Shinjuku', '澀谷Shibuya', '麻布區Nishiazabu', '千�
 const expanded = ref({
   新宿Shinjuku: { bbq: true, noodles: true, dessert: true, breakfast: true },
   澀谷Shibuya: { bbq: true, noodles: true, rice: true, dessert: true },
-  麻布區Minato: { bbq: true, noodles: true, rice: true, dessert: true },
+  麻布區Nishiazabu: { bbq: true, noodles: true, rice: true, dessert: true },
   千代田區ChiyodaCity: { bbq: true, noodles: true, rice: true, dessert: true },
   港區MinatoCity: { bbq: true, noodles: true, rice: true, dessert: true },
 })
