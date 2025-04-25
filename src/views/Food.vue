@@ -1,9 +1,9 @@
+
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-// 圖片匯入
 import terraceImg from '../assets/29terrace.png'
 import udonImg from '../assets/udon.png'
 import udon2Img from '../assets/udon2.png'
@@ -34,7 +34,6 @@ const expanded = ref({
   千代田區Minato: { bbq: true, noodles: true, rice: true, dessert: true }
 })
 
-// 區域經緯度
 const regionCoords = {
   '新宿Shinjuku': { lat: 35.6938, lng: 139.7034 },
   '澀谷Shibuya': { lat: 35.6618, lng: 139.7041 },
@@ -59,41 +58,57 @@ watch(currentRegion, (newRegion) => {
   if (map.value && marker.value) {
     map.value.setView([coords.lat, coords.lng], 14)
     marker.value.setLatLng([coords.lat, coords.lng])
+    setTimeout(() => {
+      map.value.invalidateSize()
+    }, 300)
   }
 })
+
+function flyToRestaurant(lat, lng, name) {
+  if (map.value) {
+    map.value.flyTo([lat, lng], 17, {
+      animate: true,
+      duration: 1
+    })
+    if (marker.value) {
+      marker.value.setLatLng([lat, lng])
+      marker.value.bindPopup(`<b>${name}</b>`).openPopup()
+    }
+  }
+}
 
 const foodData = {
   新宿Shinjuku: {
     bbq: [
-      { img: terraceImg, name: '燒肉 29 Terrace', desc: '高質感和牛吃到飽套餐，視覺與味覺雙享受！', url: 'https://maps.app.goo.gl/7xvk3Q1C68tT3f226' },
-      { img: lemonImg, name: '東京牛舌の檸檬', desc: '新宿燒肉 厚切牛舌超人氣！', url: 'https://maps.app.goo.gl/odUJCcKZPaDd9UQ98' }
+      { img: terraceImg, name: '燒肉 29 Terrace', desc: '高質感和牛吃到飽套餐，視覺與味覺雙享受！', url: 'https://maps.app.goo.gl/7xvk3Q1C68tT3f226', lat: 35.6917, lng: 139.7016 },
+      { img: lemonImg, name: '東京牛舌の檸檬', desc: '新宿燒肉 厚切牛舌超人氣！', url: 'https://maps.app.goo.gl/odUJCcKZPaDd9UQ98', lat: 35.6923, lng: 139.7038 }
     ],
     noodles: [
-      { img: udonImg, name: 'うどん 慎', desc: '彈牙手打烏龍麵，排隊也值得一試的超人氣名店！', url: 'https://maps.app.goo.gl/tuxUKT9fWNzsTJQe6' },
-      { img: afuriImg, name: 'AFURI 新宿', desc: 'AFURI阿夫利鹽柚子拉麵是多人推薦的東京美食', url: 'https://maps.app.goo.gl/sXucYTsqfkDVuxMJ7' }
+      { img: udonImg, name: 'うどん 慎', desc: '彈牙手打烏龍麵，排隊也值得一試的超人氣名店！', url: 'https://maps.app.goo.gl/tuxUKT9fWNzsTJQe6', lat: 35.6912, lng: 139.6995 },
+      { img: afuriImg, name: 'AFURI 新宿', desc: 'AFURI阿夫利鹽柚子拉麵是多人推薦的東京美食', url: 'https://maps.app.goo.gl/sXucYTsqfkDVuxMJ7', lat: 35.6907, lng: 139.7009 }
     ],
     dessert: [
-      { img: harbsImg, name: 'HARBS LUMINE EST新宿店', desc: '大人氣的水果千層蛋糕甜點', url: 'https://maps.app.goo.gl/Fte6hGwsc1QB1zfk6' }
+      { img: harbsImg, name: 'HARBS LUMINE EST新宿店', desc: '大人氣的水果千層蛋糕甜點', url: 'https://maps.app.goo.gl/Fte6hGwsc1QB1zfk6', lat: 35.6916, lng: 139.7023 }
     ],
     breakfast: [
-      { img: eggImg, name: 'eggslut Shinjuku Southern Terrace', desc: '新宿早餐首選', url: 'https://maps.app.goo.gl/d4qr3JJWewF9E5PH9' }
+      { img: eggImg, name: 'eggslut Shinjuku Southern Terrace', desc: '新宿早餐首選', url: 'https://maps.app.goo.gl/d4qr3JJWewF9E5PH9', lat: 35.6889, lng: 139.7005 }
     ]
   },
   澀谷Shibuya: {
     bbq: [
-      { img: MMImg, name: 'Kushiyaki Meat Man', desc: '精緻串燒的時尚居酒屋', url: 'https://maps.app.goo.gl/ZX9fg6qpBGffgkVr6' }
+      { img: MMImg, name: 'Kushiyaki Meat Man', desc: '精緻串燒的時尚居酒屋', url: 'https://maps.app.goo.gl/ZX9fg6qpBGffgkVr6', lat: 35.6591, lng: 139.7036 }
     ],
     noodles: [
-      { img: udon2Img, name: 'Yamashita Honki Udon', desc: '創意奶油明太子起司烏龍麵推薦', url: 'https://maps.app.goo.gl/4mUmo5td4NjaD19A8' }
+      { img: udon2Img, name: 'Yamashita Honki Udon', desc: '創意奶油明太子起司烏龍麵推薦', url: 'https://maps.app.goo.gl/4mUmo5td4NjaD19A8', lat: 35.6608, lng: 139.7042 }
     ],
     rice: [
-      { img: riceImg, name: 'かつお食堂', desc: '涉谷超人氣柴魚片飯專門店', url: 'https://maps.app.goo.gl/ZmZWL1EfUn5S1wug7' },
-      { img: rice2Img, name: 'Kogaiken', desc: '明星都愛吃的日本人靈魂美食蛋包飯', url: 'https://maps.app.goo.gl/Fd6toHbZq8VDFQCS6' }
+      { img: riceImg, name: 'かつお食堂', desc: '涉谷超人氣柴魚片飯專門店', url: 'https://maps.app.goo.gl/ZmZWL1EfUn5S1wug7', lat: 35.6623, lng: 139.7031 },
+      { img: rice2Img, name: 'Kogaiken', desc: '明星都愛吃的日本人靈魂美食蛋包飯', url: 'https://maps.app.goo.gl/Fd6toHbZq8VDFQCS6', lat: 35.6627, lng: 139.7028 }
     ],
     dessert: [
-      { img: coffeeImgs, name: 'HATTO COFFEE 咖啡&簡餐', desc: '神宮前好喝咖啡，還有客製化3D奶泡', url: 'https://maps.app.goo.gl/ncX7DQUqx334JnvU6', multiple: true },
-      { img: dountImg, name: "I'm donut ?", desc: '生甜甜圈紅到東京', url: 'https://maps.app.goo.gl/y1nW1S2Bp3yaJssW8' },
-      { img: cakeImg, name: 'Afternoon Tea •LOVE & TABLE', desc: '日本人氣甜點店', url: 'https://maps.app.goo.gl/qnx58rybf9K8YgUu8' }
+      { img: coffeeImgs, name: 'HATTO COFFEE 咖啡&簡餐', desc: '神宮前好喝咖啡，還有客製化3D奶泡', url: 'https://maps.app.goo.gl/ncX7DQUqx334JnvU6', lat: 35.6679, lng: 139.7126, multiple: true },
+      { img: dountImg, name: "I'm donut ?", desc: '生甜甜圈紅到東京', url: 'https://maps.app.goo.gl/y1nW1S2Bp3yaJssW8', lat: 35.6593, lng: 139.7025 },
+      { img: cakeImg, name: 'Afternoon Tea •LOVE & TABLE', desc: '日本人氣甜點店', url: 'https://maps.app.goo.gl/qnx58rybf9K8YgUu8', lat: 35.6621, lng: 139.7030 }
     ]
   },
   麻布區Minato: {
