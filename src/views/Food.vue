@@ -188,9 +188,6 @@ const foodData = {
     
 
     <div v-if="foodData[currentRegion]" class="region-content">
-      <button class="toggle-all-btn" @click="toggleAllCategories(currentRegion)">
-        {{ isAllExpanded ? "全部收合" : "全部展開" }}
-      </button>
       <h3>{{ currentRegion }} 美食推薦</h3>
 
       <div v-for="(items, category) in foodData[currentRegion]" :key="category" class="category-section">
@@ -223,7 +220,6 @@ const foodData = {
     <div id="map"></div>
   </div>
 </template>
-
 
 <style scoped>
 /* 外圍 */
