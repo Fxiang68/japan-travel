@@ -208,8 +208,8 @@ const foodData = {
       <div v-for="(items, category) in foodData[currentRegion]" :key="category" class="category-section">
         <h4 class="category-title" @click="toggleCategory(category)">
           🍽 {{ category }}
-          <span v-if="expandedCategories[category]">🔽</span>
-          <span v-else>▶️</span>
+          <span v-if="expandedCategories[category]">⏷</span>
+          <span v-else>⏵</span>
         </h4>
 
         <div v-if="expandedCategories[category]" class="food-grid">
