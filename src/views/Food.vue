@@ -20,25 +20,29 @@ import rice2Img from '../assets/rice2.png'
 import cakeImg from '../assets/cake.png'
 import coffee1 from '../assets/coffee1.png'
 import coffee2 from '../assets/coffee2.png'
+import popoImg from '../assets/popo.png'
+
 
 const coffeeImgs = [coffee1, coffee2]
 const defaultImg = 'https://via.placeholder.com/300x200?text=Coming+Soon'
 
 const currentRegion = ref('新宿Shinjuku')
-const regions = ['新宿Shinjuku', '澀谷Shibuya', '麻布區Minato', '千代田區Minato']
+const regions = ['新宿Shinjuku', '澀谷Shibuya', '麻布區Nishiazabu', '千代田區Chiyoda City','港區Minato City']
 
 const expanded = ref({
   新宿Shinjuku: { bbq: true, noodles: true, dessert: true, breakfast: true },
   澀谷Shibuya: { bbq: true, noodles: true, rice: true, dessert: true },
   麻布區Minato: { bbq: true, noodles: true, rice: true, dessert: true },
-  千代田區Minato: { bbq: true, noodles: true, rice: true, dessert: true }
+  千代田區ChiyodaCity: { bbq: true, noodles: true, rice: true, dessert: true },
+  港區MinatoCity: { bbq: true, noodles: true, rice: true, dessert: true },
 })
 
 const regionCoords = {
   '新宿Shinjuku': { lat: 35.6938, lng: 139.7034 },
   '澀谷Shibuya': { lat: 35.6618, lng: 139.7041 },
-  '麻布區Minato': { lat: 35.6544, lng: 139.7356 },
-  '千代田區Minato': { lat: 35.6930, lng: 139.7530 }
+  '麻布區Nishiazabu': { lat: 35.6544, lng: 139.7356 },
+  '千代田區Chiyoda City': { lat: 35.6930, lng: 139.7530 },
+  '港區Minato City':{lat: 35.6580, lng: 139.7514},
 }
 
 const map = ref(null)
@@ -103,7 +107,6 @@ const foodData = {
     ],
     rice: [
       { img: riceImg, name: 'かつお食堂', desc: '涉谷超人氣柴魚片飯專門店', url: 'https://maps.app.goo.gl/ZmZWL1EfUn5S1wug7', lat: 35.6623, lng: 139.7031 },
-      { img: rice2Img, name: 'Kogaiken', desc: '明星都愛吃的日本人靈魂美食蛋包飯', url: 'https://maps.app.goo.gl/Fd6toHbZq8VDFQCS6', lat: 35.6627, lng: 139.7028 }
     ],
     dessert: [
       { img: coffeeImgs, name: 'HATTO COFFEE 咖啡&簡餐', desc: '神宮前好喝咖啡，還有客製化3D奶泡', url: 'https://maps.app.goo.gl/ncX7DQUqx334JnvU6', lat: 35.6679, lng: 139.7126, multiple: true },
@@ -111,15 +114,21 @@ const foodData = {
       { img: cakeImg, name: 'Afternoon Tea •LOVE & TABLE', desc: '日本人氣甜點店', url: 'https://maps.app.goo.gl/qnx58rybf9K8YgUu8', lat: 35.6621, lng: 139.7030 }
     ]
   },
-  麻布區Minato: {
+  麻布區Nishiazabu: {
     bbq: [{ img: null, name: null, desc: null }],
+    noodles: [{ img: null, name: null, desc: null }],
+    rice: [{ img: rice2Img, name: 'Kogaiken', desc: '明星都愛吃的日本人靈魂美食蛋包飯', url: 'https://maps.app.goo.gl/Fd6toHbZq8VDFQCS6', lat: 35.6627, lng: 139.7028  }],
+    dessert: [{ img: null, name: null, desc: null }]
+  },
+  千代田區ChiyodaCity: {
+    bbq: [{ img:popoImg , name:'PATISSERIE TEN&', desc:'東京泡芙天花板',url:'https://maps.app.goo.gl/f2pzHGDGNxT67WBD9' }],
     noodles: [{ img: null, name: null, desc: null }],
     rice: [{ img: null, name: null, desc: null }],
     dessert: [{ img: null, name: null, desc: null }]
   },
-  千代田區Minato: {
-    bbq: [{ img: null, name: null, desc: null }],
-    noodles: [{ img: null, name: null, desc: null }],
+  港區MinatoCity: {
+    bbq: [{ img: bbqImg, name: '爐端武藏', desc:'東京人氣居酒屋「爐端燒武藏」坐等師傅現烤美食給你吃！',url:'https://maps.app.goo.gl/rWVskEE77DjQPhJa7' }],
+    noodles: [{ img: lamanImg, name:'富喜製麺研究所 六本木店', desc:'東京拉麵老字號',url:'https://maps.app.goo.gl/ogH4kbGN56J6sSSa8' }],
     rice: [{ img: null, name: null, desc: null }],
     dessert: [{ img: null, name: null, desc: null }]
   }
