@@ -44,6 +44,14 @@ const regions = [
   '人形町區Chuo City'
 ]
 
+const expanded= ref({
+bbq: true,
+noodles: true,
+dessert: true,
+breakfast: true,
+sushi: true,
+sukiyaki: true,})
+
 const regionCoords = {
   '新宿Shinjuku': { lat: 35.6938, lng: 139.7034 },
   '澀谷Shibuya': { lat: 35.6618, lng: 139.7041 },
@@ -66,6 +74,9 @@ onMounted(() => {
   }).addTo(map.value)
   marker.value = L.marker([coords.lat, coords.lng]).addTo(map.value)
 })
+const toggleCategory = (category) => {
+  expandedCategories.value[category] = !expandedCategories.value[category]
+}
 
 watch(currentRegion, (newRegion) => {
   const coords = regionCoords[newRegion]
@@ -185,15 +196,18 @@ const foodData = {
         {{ region }}
       </button>
     </div>
-    
 
     <div v-if="foodData[currentRegion]" class="region-content">
       <h3>{{ currentRegion }} 美食推薦</h3>
 
       <div v-for="(items, category) in foodData[currentRegion]" :key="category" class="category-section">
-        <h4 class="category-title">🍽 {{ category }}</h4>
+        <h4 class="category-title" @click="toggleCategory(category)">
+          🍽 {{ category }}
+          <span v-if="expandedCategories[category]">🔽</span>
+          <span v-else>▶️</span>
+        </h4>
 
-        <div class="food-grid">
+        <div v-if="expandedCategories[category]" class="food-grid">
           <div
             v-for="(item, index) in items"
             :key="index"
@@ -208,6 +222,13 @@ const foodData = {
             />
             <h5>{{ item.name || '敬請期待' }}</h5>
             <p>{{ item.desc || '更多資訊即將公開' }}</p>
+            <button
+              v-if="item.lat && item.lng"
+              @click.stop="openGoogleMaps(item.lat, item.lng)"
+              class="navigate-button"
+            >
+              Google導航
+            </button>
           </div>
         </div>
       </div>
@@ -285,6 +306,7 @@ const foodData = {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
+
 /* 圖片處理 */
 .img-single {
   width: 100%;
@@ -303,6 +325,21 @@ const foodData = {
   gap: 10px;
   margin-bottom: 10px;
   scroll-snap-type: x mandatory;
+}
+
+.navigate-button {
+  margin-top: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.navigate-button:hover {
+  background-color: #357ae8;
 }
 
 /* 即將推出 */
