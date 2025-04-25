@@ -58,6 +58,18 @@ const regionCoords = {
 
 const expandedCategories = ref({})
 
+const isAllExpanded = ref(true)
+
+function toggleAllCategories(region) {
+  const categories = Object.keys(foodData[region] || {})
+  categories.forEach(category => {
+    const key = `${region}-${category}`
+    expandedCategories.value[key] = isAllExpanded.value
+  })
+  isAllExpanded.value = !isAllExpanded.value
+}
+
+
 function toggleCategory(region, category) {
   const key = `${region}-${category}`
   expandedCategories.value[key] = !expandedCategories.value[key]
@@ -200,6 +212,9 @@ const foodData = {
     </div>
 
     <div v-if="foodData[currentRegion]" class="region-content">
+      <button class="toggle-all-btn" @click="toggleAllCategories(currentRegion)">
+        {{ isAllExpanded ? "全部收合" : "全部展開" }}
+      </button>
       <h3>{{ currentRegion }} 美食推薦</h3>
 
       <div v-for="(items, category) in foodData[currentRegion]" :key="category" class="category-section">
@@ -344,6 +359,21 @@ const foodData = {
   font-size: 16px;
   color: #aaa;
   transition: transform 0.2s ease;
+}
+
+
+.toggle-all-btn {
+  background-color: #f6d5d8;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.toggle-all-btn:hover {
+  background-color: #e2b7bb;
 }
 
 </style>
