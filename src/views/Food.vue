@@ -28,6 +28,7 @@ import sushiImg from '../assets/sushi.png'
 import mochaImg from '../assets/mocha.png'
 import shisaImg from '../assets/shisa.png'
 import shisa2Img from '../assets/shisa2.png'
+import a1Img from '../assets/a1.png'
 
 const expandedCategories = ref({})
 const coffeeImgs = [coffee1, coffee2]
@@ -183,7 +184,7 @@ const foodData = {
       { img: shisaImg, name: '人形町今半 壽喜燒', desc: '東京必吃壽喜燒名店', url: 'https://maps.app.goo.gl/Gn4ny3yh9BLzAp9Z7', lat: 35.6867, lng: 139.7818 },
       { img: shisa2Img, name: '熊本あか牛しゃぶしゃぶ 甲梅 火鍋', desc: '熊本赤牛火鍋專門店', url: 'https://maps.app.goo.gl/v3ERi35Qtq2v9BMf9', lat: 35.6870, lng: 139.7810 }
     ],
-    attractions:[{img: null, name: null, desc: null}]
+    attractions:[{img: a1Img, name: '小網神社', desc: '強運厄除、洗錢開金運',url:'https://maps.app.goo.gl/ARv8TD9dbX37rWbc6',lat: 35.6867, lng: 139.7822}]
   }
 }
 </script>
