@@ -13,6 +13,7 @@ import lemonImg from '../assets/lemon.png'
 import lamanImg from '../assets/laman.png'
 import eggImg from '../assets/egg.png'
 import bbqImg from '../assets/bbq.png'
+import bbq2Img from '../assets/bbq2.png'
 import dountImg from '../assets/dount.png'
 import MMImg from '../assets/MM.png'
 import riceImg from '../assets/rice.png'
@@ -21,20 +22,25 @@ import cakeImg from '../assets/cake.png'
 import coffee1 from '../assets/coffee1.png'
 import coffee2 from '../assets/coffee2.png'
 import popoImg from '../assets/popo.png'
+import sushiImg from '../assets/sushi.png'
+import mochaImg from '../assets/mocha.png'
 
 
 const coffeeImgs = [coffee1, coffee2]
 const defaultImg = 'https://via.placeholder.com/300x200?text=Coming+Soon'
 
 const currentRegion = ref('新宿Shinjuku')
-const regions = ['新宿Shinjuku', '澀谷Shibuya', '麻布區Nishiazabu', '千代田區Chiyoda City','港區Minato City']
+const regions = ['新宿Shinjuku', '澀谷Shibuya', '麻布區Nishiazabu', '千代田區Chiyoda City','港區Minato City','淺草台東區Taito City','文京區Bunkyo City','人形町區Chuo City']
 
 const expanded = ref({
-  新宿Shinjuku: { bbq: true, noodles: true, dessert: true, breakfast: true },
-  澀谷Shibuya: { bbq: true, noodles: true, rice: true, dessert: true },
-  麻布區Nishiazabu: { bbq: true, noodles: true, rice: true, dessert: true },
-  千代田區ChiyodaCity: { bbq: true, noodles: true, rice: true, dessert: true },
-  港區MinatoCity: { bbq: true, noodles: true, rice: true, dessert: true },
+  '新宿Shinjuku': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
+  '澀谷Shibuya': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
+  '麻布區Nishiazabu': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
+  '千代田區Chiyoda City': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
+  '港區Minato City': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
+  '淺草台東區Taito City': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
+  '文京區Bunkyo City': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true, Sushi: true },
+  '人形町區Chuo City': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true, Sukiyaki: true }
 })
 
 const regionCoords = {
@@ -42,8 +48,12 @@ const regionCoords = {
   '澀谷Shibuya': { lat: 35.6618, lng: 139.7041 },
   '麻布區Nishiazabu': { lat: 35.6544, lng: 139.7356 },
   '千代田區Chiyoda City': { lat: 35.6930, lng: 139.7530 },
-  '港區Minato City':{lat: 35.6580, lng: 139.7514},
+  '港區Minato City': { lat: 35.6580, lng: 139.7514 },
+  '淺草台東區Taito City': { lat: 35.7125, lng: 139.7771 },
+  '文京區Bunkyo City': { lat: 35.7079, lng: 139.7661 },
+  '人形町區Chuo City': { lat: 35.6867, lng: 139.7818 }
 }
+
 
 const map = ref(null)
 const marker = ref(null)
@@ -127,12 +137,37 @@ const foodData = {
     dessert: [{ img: null, name: null, desc: null }]
   },
   港區MinatoCity: {
-    bbq: [{ img: bbqImg, name: '爐端武藏', desc:'東京人氣居酒屋「爐端燒武藏」坐等師傅現烤美食給你吃！',url:'https://maps.app.goo.gl/rWVskEE77DjQPhJa7' }],
+    bbq: [{ img: bbqImg, name: '爐端武藏', desc:'東京人氣居酒屋「爐端燒武藏」坐等師傅現烤美食給你吃！',url:'https://maps.app.goo.gl/rWVskEE77DjQPhJa7' },
+    { img: bbq2Img, name:'燒肉 JUMBO', desc:'白金黑毛和牛',url:'https://maps.app.goo.gl/psVrbXnBvrNdkFXE6' },
+    { img: bbq3Img, name:'燒肉Kunimoto 新館', desc:'該店多次獲得 Tabelog Award 銅獎，並連續多年入選「燒肉百名店」榜單',url:'https://maps.app.goo.gl/nMZLTEBUnZBz2gkv8' },
+    ],
     noodles: [{ img: lamanImg, name:'富喜製麺研究所 六本木店', desc:'東京拉麵老字號',url:'https://maps.app.goo.gl/ogH4kbGN56J6sSSa8' }],
     rice: [{ img: null, name: null, desc: null }],
     dessert: [{ img: null, name: null, desc: null }]
-  }
-}
+  },
+  淺草台東區TaitoCity: {
+    bbq: [{img: null, name: null, desc: null}],
+    noodles: [{ img: laman2Img, name:'拉麵鴨to蔥', desc:'極致鴨香拉麵',url:'https://maps.app.goo.gl/yaRBD6u62R6ViRz7A' }],
+    rice: [{ img: null, name: null, desc: null }],
+    dessert: [{ img: mochaImg, name:'八十八良葉舍 淺草', desc: '淺草八十八抹茶推薦！在東京也能體驗京都八十八良葉舎手刷抹茶與茶點',url:'https://maps.app.goo.gl/cEMfiaPgp4VAkpoAA' }]
+},
+文京區BunkyoCity: {
+    bbq: [{ img: null, name: null, desc: null}],
+    noodles: [{ img: null, name: null, desc: null }],
+    rice: [{ img: null, name: null, desc: null }],
+    dessert: [{ img: null, name: null, desc: null }],
+    Sushi: [{ img:sushiImg, name:'Sushi Edo Fuji', desc: '巨大海鮮丼飯' ,url:'https://maps.app.goo.gl/1UB5frDujraifDPi9'}]
+},
+人形町區ChuoCity: {
+    bbq: [{ img: null, name: null, desc: null}],
+    noodles: [{ img: null, name: null, desc: null }],
+    rice: [{ img: null, name: null, desc: null }],
+    dessert: [{ img: null, name: null, desc: null }],
+    Sukiyaki: [{img: shisaImg, name:'人形町今半 壽喜燒', desc: '東京必吃壽喜燒名店！',url:'https://maps.app.goo.gl/Gn4ny3yh9BLzAp9Z7'},
+    { img: shisa2Img, name: '熊本あか牛しゃぶしゃぶ 甲梅 火鍋 ', desc: '使用熊本阿蘇孕育的赤牛「甲誠牛」的涮涮鍋專門店',url:'https://maps.app.goo.gl/v3ERi35Qtq2v9BMf9' }
+
+    ]
+  }}
 </script>
 
 <template>
