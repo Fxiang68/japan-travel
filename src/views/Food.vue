@@ -235,20 +235,6 @@ const foodData = {
             >
               Google導航
             </button>
-                </div>
-
-      <h3>{{ currentRegion }} 景點推薦</h3>
-      <div class="attractions-container">
-        <div
-          v-for="spot in foodData[currentRegion].attractions"
-          :key="spot.name"
-          class="attraction-card"
-          @click="spot.lat && spot.lng && flyToRestaurant(spot.lat, spot.lng, spot.name)"
-        >
-          <h4>{{ spot.name }}</h4>
-          <p>{{ spot.desc }}</p>
-          <button @click.stop="openGoogleMaps(spot.lat, spot.lng)">Google導航</button>
-        </div>  
           </div>
         </div>
       </div>
@@ -334,12 +320,7 @@ const foodData = {
   width: 100%;
   max-width: 300px;
 }
-.attractions-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 20px 0;
-}
+
 /* 圖片處理 */
 .img-single {
   width: 100%;
