@@ -55,31 +55,6 @@ const regionCoords = {
   '人形町區Chuo City': { lat: 35.6867, lng: 139.7818 }
 }
 
-
-const expandedCategories = ref({})
-
-const isAllExpanded = ref(true)
-
-function toggleAllCategories(region) {
-  const categories = Object.keys(foodData[region] || {})
-  categories.forEach(category => {
-    const key = `${region}-${category}`
-    expandedCategories.value[key] = isAllExpanded.value
-  })
-  isAllExpanded.value = !isAllExpanded.value
-}
-
-
-function toggleCategory(region, category) {
-  const key = `${region}-${category}`
-  expandedCategories.value[key] = !expandedCategories.value[key]
-}
-function isExpanded(region, category) {
-  const key = `${region}-${category}`
-  return expandedCategories.value[key] ?? true
-}
-
-
 const map = ref(null)
 const marker = ref(null)
 
@@ -210,22 +185,15 @@ const foodData = {
         {{ region }}
       </button>
     </div>
+    
 
     <div v-if="foodData[currentRegion]" class="region-content">
       <button class="toggle-all-btn" @click="toggleAllCategories(currentRegion)">
         {{ isAllExpanded ? "全部收合" : "全部展開" }}
       </button>
       <h3>{{ currentRegion }} 美食推薦</h3>
-      <button class="toggle-all-btn" @click="toggleAllCategories(currentRegion)">
-        {{ isAllExpanded ? "全部收合" : "全部展開" }}
-      </button>
 
       <div v-for="(items, category) in foodData[currentRegion]" :key="category" class="category-section">
-      <h4 class="category-title" @click="toggleCategory(currentRegion, category)">
-        🍽 {{ category }}
-        <span class="toggle-icon">{{ isExpanded(currentRegion, category) ? '▼' : '▲' }}</span>
-      </h4>
-      <div class="food-grid" v-show="isExpanded(currentRegion, category)">
         <h4 class="category-title">🍽 {{ category }}</h4>
 
         <div class="food-grid">
@@ -255,6 +223,7 @@ const foodData = {
     <div id="map"></div>
   </div>
 </template>
+
 
 <style scoped>
 /* 外圍 */
@@ -295,9 +264,6 @@ const foodData = {
   margin-bottom: 40px;
 }
 .category-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-size: 20px;
   margin: 20px 0 15px;
 }
@@ -362,26 +328,4 @@ const foodData = {
   border-radius: 12px;
   border: 1px solid #ccc;
 }
-
-.toggle-icon {
-  font-size: 16px;
-  color: #aaa;
-  transition: transform 0.2s ease;
-}
-
-
-.toggle-all-btn {
-  background-color: #f6d5d8;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  margin-bottom: 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.toggle-all-btn:hover {
-  background-color: #e2b7bb;
-}
-
 </style>
