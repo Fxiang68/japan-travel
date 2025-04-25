@@ -29,6 +29,7 @@ import mochaImg from '../assets/mocha.png'
 import shisaImg from '../assets/shisa.png'
 import shisa2Img from '../assets/shisa2.png'
 
+const expandedCategories = ref({})
 const coffeeImgs = [coffee1, coffee2]
 const defaultImg = 'https://via.placeholder.com/300x200?text=Coming+Soon'
 
@@ -100,6 +101,10 @@ function flyToRestaurant(lat, lng, name) {
       marker.value.bindPopup(`<b>${name}</b>`).openPopup()
     }
   }
+}
+const openGoogleMaps = (lat, lng) => {
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
+  window.open(url, '_blank')
 }
 
 const foodData = {
