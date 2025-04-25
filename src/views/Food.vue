@@ -55,6 +55,19 @@ const regionCoords = {
   '人形町區Chuo City': { lat: 35.6867, lng: 139.7818 }
 }
 
+
+const expandedCategories = ref({})
+
+function toggleCategory(region, category) {
+  const key = `${region}-${category}`
+  expandedCategories.value[key] = !expandedCategories.value[key]
+}
+function isExpanded(region, category) {
+  const key = `${region}-${category}`
+  return expandedCategories.value[key] ?? true
+}
+
+
 const map = ref(null)
 const marker = ref(null)
 
@@ -259,6 +272,9 @@ const foodData = {
   margin-bottom: 40px;
 }
 .category-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-size: 20px;
   margin: 20px 0 15px;
 }
@@ -323,4 +339,11 @@ const foodData = {
   border-radius: 12px;
   border: 1px solid #ccc;
 }
+
+.toggle-icon {
+  font-size: 16px;
+  color: #aaa;
+  transition: transform 0.2s ease;
+}
+
 </style>
