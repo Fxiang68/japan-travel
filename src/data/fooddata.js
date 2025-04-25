@@ -27,7 +27,7 @@ const coffeeImgs = [coffee1, coffee2]
 
 
 
-export const foodData = {  
+export const fooddata = {  
     新宿Shinjuku: {
     bbq: [
       { img: terraceImg, name: '燒肉 29 Terrace', desc: '高質感和牛吃到飽套餐，視覺與味覺雙享受！', url: 'https://maps.app.goo.gl/7xvk3Q1C68tT3f226', lat: 35.6917, lng: 139.7016 },
