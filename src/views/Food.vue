@@ -45,13 +45,12 @@ const regions = [
   '人形町區Chuo City'
 ]
 
-const expanded= ref({
-bbq: true,
-noodles: true,
-dessert: true,
-breakfast: true,
-sushi: true,
-sukiyaki: true,})
+const categories = ['bbq', 'noodles', 'dessert', 'breakfast', 'sushi', 'sukiyaki']
+
+const expanded = ref(
+  Object.fromEntries(categories.map(cat => [cat, true]))  // 預設展開
+)
+
 
 const regionCoords = {
   '新宿Shinjuku': { lat: 35.6938, lng: 139.7034 },
