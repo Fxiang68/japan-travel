@@ -295,8 +295,8 @@ const foodData = {
 .food-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 24px; /* 原本 20px 改為 24px */
-  padding: 12px; /* 加 padding 避免貼邊 */
+  gap: 20px; /* 原本 20px 改為 24px */
+  padding: 5px; /* 加 padding 避免貼邊 */
 }
 .food-card {
   background: #ffffff;
@@ -314,12 +314,12 @@ const foodData = {
 }
 
 .food-card, .attraction-card {
-  border: 1px solid #eee;
-  border-radius: 12px;
-  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
   background-color: #fff;
-  max-width: 100%; /* 用 grid 控制寬度 */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  max-width: 300px;
 }
 
 /* 圖片處理 */
