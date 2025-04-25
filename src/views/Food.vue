@@ -211,6 +211,9 @@ const foodData = {
         </div>
       </div>
     </div>
+    <div v-else>
+      <p style="color: red;">⚠️ 找不到 {{ currentRegion }} 的美食資料，請稍後再試。</p>
+    </div>
 
     <h4 class="map-title">{{ currentRegion }} 地區地圖</h4>
     <div id="map"></div>
