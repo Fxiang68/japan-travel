@@ -16,6 +16,14 @@ const coffeeImgs = [coffee1, coffee2]
 
 const currentRegion = ref('東京')
 const regions = ['東京', '新宿', '京都']
+
+// 控制每個分類是否展開
+const expanded = ref({
+  bbq: true,
+  noodles: true,
+  dessert: true,
+  breakfast: true
+})
 </script>
 
 <template>
@@ -35,8 +43,10 @@ const regions = ['東京', '新宿', '京都']
     <!-- 新宿 -->
     <div v-if="currentRegion === '新宿'">
       <h3>新宿美食</h3>
-      <div class="food-container">
 
+      <!-- 分類：燒肉 -->
+      <h4 @click="expanded.bbq = !expanded.bbq" style="cursor: pointer;">🍖 燒肉 {{ expanded.bbq ? '▾' : '▸' }}</h4>
+      <div class="food-container" v-if="expanded.bbq">
         <div class="food-card">
           <img :src="terraceImg" />
           <h3>燒肉 29 Terrace</h3>
@@ -45,17 +55,21 @@ const regions = ['東京', '新宿', '京都']
         </div>
 
         <div class="food-card">
+          <img :src="lemonImg" />
+          <h3>東京牛舌の檸檬</h3>
+          <p>新宿燒肉 厚切牛舌超人氣！</p>
+          <a href="https://maps.app.goo.gl/odUJCcKZPaDd9UQ98" target="_blank">查看 Google 地圖</a>
+        </div>
+      </div>
+
+      <!-- 分類：拉麵／烏龍麵 -->
+      <h4 @click="expanded.noodles = !expanded.noodles" style="cursor: pointer;">🍜 拉麵 / 烏龍麵 {{ expanded.noodles ? '▾' : '▸' }}</h4>
+      <div class="food-container" v-if="expanded.noodles">
+        <div class="food-card">
           <img :src="udonImg" />
           <h3>うどん 慎</h3>
           <p>彈牙手打烏龍麵，排隊也值得一試的超人氣名店！</p>
           <a href="https://maps.app.goo.gl/qH7kNU4XGhBcdWfY9" target="_blank">查看 Google 地圖</a>
-        </div>
-
-        <div class="food-card">
-          <img :src="harbsImg" />
-          <h3>HARBS LUMINE EST新宿店</h3>
-          <p>大人氣的水果千層蛋糕甜點</p>
-          <a href="https://maps.app.goo.gl/Fte6hGwsc1QB1zfk6" target="_blank">查看 Google 地圖</a>
         </div>
 
         <div class="food-card">
@@ -64,19 +78,16 @@ const regions = ['東京', '新宿', '京都']
           <p>AFURI阿夫利鹽柚子拉麵是多人推薦的東京美食</p>
           <a href="https://maps.app.goo.gl/sXucYTsqfkDVuxMJ7" target="_blank">查看 Google 地圖</a>
         </div>
+      </div>
 
+      <!-- 分類：甜點／咖啡 -->
+      <h4 @click="expanded.dessert = !expanded.dessert" style="cursor: pointer;">🍰 甜點 / 咖啡 {{ expanded.dessert ? '▾' : '▸' }}</h4>
+      <div class="food-container" v-if="expanded.dessert">
         <div class="food-card">
-          <img :src="lemonImg" />
-          <h3>東京牛舌の檸檬</h3>
-          <p>新宿燒肉 厚切牛舌超人氣！</p>
-          <a href="https://maps.app.goo.gl/odUJCcKZPaDd9UQ98" target="_blank">查看 Google 地圖</a>
-        </div>
-
-        <div class="food-card">
-          <img :src="eggImg" />
-          <h3>漢堡 eggslut Shinjuku Southern Terrace</h3>
-          <p>新宿早餐首選</p>
-          <a href="https://maps.app.goo.gl/d4qr3JJWewF9E5PH9" target="_blank">查看 Google 地圖</a>
+          <img :src="harbsImg" />
+          <h3>HARBS LUMINE EST新宿店</h3>
+          <p>大人氣的水果千層蛋糕甜點</p>
+          <a href="https://maps.app.goo.gl/Fte6hGwsc1QB1zfk6" target="_blank">查看 Google 地圖</a>
         </div>
 
         <div class="food-card">
@@ -92,12 +103,17 @@ const regions = ['東京', '新宿', '京都']
           <p>神宮前好喝咖啡，還有客製化3D奶泡</p>
           <a href="https://maps.app.goo.gl/ncX7DQUqx334JnvU6" target="_blank">查看 Google 地圖</a>
         </div>
+      </div>
 
-
-
-
-
-        
+      <!-- 分類：早餐 -->
+      <h4 @click="expanded.breakfast = !expanded.breakfast" style="cursor: pointer;">🍳 早餐 {{ expanded.breakfast ? '▾' : '▸' }}</h4>
+      <div class="food-container" v-if="expanded.breakfast">
+        <div class="food-card">
+          <img :src="eggImg" />
+          <h3>漢堡 eggslut Shinjuku Southern Terrace</h3>
+          <p>新宿早餐首選</p>
+          <a href="https://maps.app.goo.gl/d4qr3JJWewF9E5PH9" target="_blank">查看 Google 地圖</a>
+        </div>
       </div>
     </div>
   </div>
