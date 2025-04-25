@@ -1,9 +1,9 @@
-
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
+// 匯入所有圖片資源
 import terraceImg from '../assets/29terrace.png'
 import udonImg from '../assets/udon.png'
 import udon2Img from '../assets/udon2.png'
@@ -11,9 +11,11 @@ import harbsImg from '../assets/harbs.png'
 import afuriImg from '../assets/afuri.png'
 import lemonImg from '../assets/lemon.png'
 import lamanImg from '../assets/laman.png'
+import laman2Img from '../assets/laman2.png'
 import eggImg from '../assets/egg.png'
 import bbqImg from '../assets/bbq.png'
 import bbq2Img from '../assets/bbq2.png'
+import bbq3Img from '../assets/bbq3.png'
 import dountImg from '../assets/dount.png'
 import MMImg from '../assets/MM.png'
 import riceImg from '../assets/rice.png'
@@ -24,25 +26,23 @@ import coffee2 from '../assets/coffee2.png'
 import popoImg from '../assets/popo.png'
 import sushiImg from '../assets/sushi.png'
 import mochaImg from '../assets/mocha.png'
+import shisaImg from '../assets/shisa.png'
+import shisa2Img from '../assets/shisa2.png'
 
-
+// 圖片陣列示例
 const coffeeImgs = [coffee1, coffee2]
 const defaultImg = 'https://via.placeholder.com/300x200?text=Coming+Soon'
 
+// 當前選擇地區與展開狀態
 const currentRegion = ref('新宿Shinjuku')
 const regions = ['新宿Shinjuku', '澀谷Shibuya', '麻布區Nishiazabu', '千代田區Chiyoda City','港區Minato City','淺草台東區Taito City','文京區Bunkyo City','人形町區Chuo City']
 
-const expanded = ref({
-  '新宿Shinjuku': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
-  '澀谷Shibuya': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
-  '麻布區Nishiazabu': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
-  '千代田區Chiyoda City': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
-  '港區Minato City': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
-  '淺草台東區Taito City': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true },
-  '文京區Bunkyo City': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true, Sushi: true },
-  '人形町區Chuo City': { Bbq: true, Noodles: true, Dessert: true, Breakfast: true, Sukiyaki: true }
+const expanded = ref({})
+regions.forEach(region => {
+  expanded.value[region] = { Bbq: true, Noodles: true, Dessert: true, Breakfast: true, Sushi: true, Sukiyaki: true }
 })
 
+// 地理座標設定
 const regionCoords = {
   '新宿Shinjuku': { lat: 35.6938, lng: 139.7034 },
   '澀谷Shibuya': { lat: 35.6618, lng: 139.7041 },
@@ -54,7 +54,7 @@ const regionCoords = {
   '人形町區Chuo City': { lat: 35.6867, lng: 139.7818 }
 }
 
-
+// Leaflet 地圖與標記
 const map = ref(null)
 const marker = ref(null)
 
@@ -90,7 +90,6 @@ function flyToRestaurant(lat, lng, name) {
     }
   }
 }
-
 const foodData = {
   新宿Shinjuku: {
     bbq: [
