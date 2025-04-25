@@ -63,9 +63,28 @@ const foodData = {
     breakfast: [
       { img: eggImg, name: 'eggslut Shinjuku Southern Terrace', desc: '新宿早餐首選', url: 'https://maps.app.goo.gl/d4qr3JJWewF9E5PH9' }
     ]
+  },
+  澀谷Shibuya: {
+    bbq: [
+      { img: MMImg, name: 'Kushiyaki Meat Man', desc: '精緻串燒的時尚居酒屋', url: 'https://maps.app.goo.gl/ZX9fg6qpBGffgkVr6' }
+    ],
+    noodles: [
+      { img: udon2Img, name: 'Yamashita Honki Udon', desc: '創意奶油明太子起司烏龍麵推薦', url: 'https://maps.app.goo.gl/4mUmo5td4NjaD19A8' }
+    ],
+    rice: [
+      { img: riceImg, name: 'かつお食堂', desc: '涉谷超人氣柴魚片飯專門店', url: 'https://maps.app.goo.gl/ZmZWL1EfUn5S1wug7' },
+      { img: rice2Img, name: 'Kogaiken', desc: '明星都愛吃的日本人靈魂美食蛋包飯', url: 'https://maps.app.goo.gl/Fd6toHbZq8VDFQCS6' }
+    ],
+    dessert: [
+      { img: coffeeImgs, name: 'HATTO COFFEE 咖啡&簡餐', desc: '神宮前好喝咖啡，還有客製化3D奶泡', url: 'https://maps.app.goo.gl/ncX7DQUqx334JnvU6', multiple: true },
+      { img: dountImg, name: "I'm donut ?", desc: '生甜甜圈紅到東京', url: 'https://maps.app.goo.gl/y1nW1S2Bp3yaJssW8' },
+      { img: cakeImg, name: 'Afternoon Tea •LOVE & TABLE', desc: '日本人氣甜點店', url: 'https://maps.app.goo.gl/qnx58rybf9K8YgUu8' }
+    ]
   }
-  // 其餘略...
 }
+
+  // 其餘略...
+
 </script>
 
 <template>
