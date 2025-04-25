@@ -1,116 +1,133 @@
-<script setup>
-import { ref } from 'vue'
-
-const currentDay = ref('Day 1')
-
-const schedule = {
-  'Day 1': [
-    { time: '09:00', event: '東京自由行' },
-    { time: '10:30', event: '淺草寺' },
-    { time: '11:30', transport: '搭乘銀座線前往晴空塔，約 20 分鐘' },
-    { time: '12:00', event: '晴空塔' }
-  ],
-  'Day 2': [
-    { time: '08:00', event: '迪士尼海洋一整天' }
-  ],
-  'Day 3': [],
-  'Day 4': [],
-  'Day 5': [],
-  'Day 6': []
-}
-</script>
-
 <template>
-  <div style="padding: 20px;">
-    <h2>每日行程</h2>
-
-    <!-- 日期切換按鈕 -->
-    <div class="day-buttons">
-      <button
-        v-for="(items, day) in schedule"
-        :key="day"
-        @click="currentDay = day"
-        :class="{ active: currentDay === day }"
+  <div class="schedule-container">
+    <h2>行程表</h2>
+    <div class="timeline">
+      <div
+        class="timeline-item"
+        v-for="(event, index) in schedule"
+        :key="index"
       >
-        {{ day }}
-      </button>
+        <div class="time">{{ event.time }}</div>
+        <div class="content-card">
+          <img
+            v-if="event.img"
+            :src="event.img"
+            alt="event preview"
+            class="preview-img"
+          />
+          <h3>{{ event.title }}</h3>
+          <p>{{ event.desc }}</p>
+          <button
+            v-if="event.lat && event.lng"
+            @click="openGoogleMaps(event.lat, event.lng)"
+            class="nav-btn"
+          >
+            Google導航
+          </button>
+        </div>
+      </div>
     </div>
-
-    <!-- 時間軸 -->
-    <ul class="timeline">
-      <li
-        v-for="item in schedule[currentDay]"
-        :key="item.time + (item.event || item.transport)"
-      >
-        <span class="time">{{ item.time }}</span>
-        <span v-if="item.event" class="event">📍 {{ item.event }}</span>
-        <span v-else-if="item.transport" class="transport">🚃 {{ item.transport }}</span>
-      </li>
-
-      <li v-if="schedule[currentDay].length === 0" class="empty">
-        尚無行程，歡迎填寫✍️
-      </li>
-    </ul>
   </div>
 </template>
 
-<style scoped>
-.day-buttons {
-  margin-bottom: 16px;
-}
-.day-buttons button {
-  margin-right: 8px;
-  padding: 6px 14px;
-  background: white;
-  border: 1px solid #f6d5d8;
-  color: #f6d5d8;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.day-buttons button.active,
-.day-buttons button:hover {
-  background-color: #a6dce3;
-  color: white;
-  border-color: #a6dce3;
-}
+<script setup>
+import { ref } from 'vue'
 
-.timeline {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-  border-left: 3px solid #f6d5d8;
+const schedule = ref([
+  {
+    time: '09:00',
+    title: '早餐：上島咖啡',
+    desc: '品嚐道地日式早餐',
+    img: '/images/breakfast.jpg',
+    lat: 35.6895,
+    lng: 139.6917
+  },
+  {
+    time: '10:30',
+    title: '東京巨蛋城',
+    desc: '遊樂園與購物中心',
+    img: '/images/dome.jpg',
+    lat: 35.7056,
+    lng: 139.7519
+  },
+  {
+    time: '13:00',
+    title: '午餐：利久牛舌',
+    desc: '仙台人氣牛舌專賣店',
+    img: '/images/lunch.jpg',
+    lat: 35.709,
+    lng: 139.753
+  },
+  {
+    time: '15:00',
+    title: '小石川植物園',
+    desc: '悠閒漫步賞花草',
+    img: '/images/garden.jpg',
+    lat: 35.718,
+    lng: 139.744
+  }
+])
+
+const openGoogleMaps = (lat, lng) => {
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
+  window.open(url, '_blank')
 }
-.timeline li {
+</script>
+
+<style scoped>
+.schedule-container {
+  padding: 20px;
+}
+.timeline {
   position: relative;
-  margin: 14px 0;
+  margin: 20px 0;
+  border-left: 4px solid #cce3dc;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
   padding-left: 20px;
 }
-.timeline li::before {
+.timeline-item::before {
   content: '';
   position: absolute;
-  left: -6px;
-  top: 6px;
-  width: 8px;
-  height: 8px;
-  background-color: #f6d5d8;
+  left: -10px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  background-color: #7bdacc;
   border-radius: 50%;
+  border: 2px solid white;
 }
 .time {
-  display: inline-block;
-  width: 70px;
   font-weight: bold;
-  color: #333;
+  color: #555;
 }
-.event {
-  color: #444;
+.content-card {
+  background: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-top: 5px;
 }
-.transport {
-  color: #888;
-  font-style: italic;
+.preview-img {
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  object-fit: cover;
 }
-.empty {
-  margin-top: 16px;
-  color: #aaa;
+.nav-btn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.nav-btn:hover {
+  background-color: #3367d6;
 }
 </style>
