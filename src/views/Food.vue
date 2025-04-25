@@ -1,5 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 
 // 圖片匯入
 import terraceImg from '../assets/29terrace.png'
@@ -43,29 +45,20 @@ const regionCoords = {
 const map = ref(null)
 const marker = ref(null)
 
-// 初始化地圖
 onMounted(() => {
-  if (window.google && window.google.maps) {
-    const coords = regionCoords[currentRegion.value]
-    map.value = new google.maps.Map(document.getElementById('map'), {
-      center: coords,
-      zoom: 14
-    })
-    marker.value = new google.maps.Marker({
-      position: coords,
-      map: map.value,
-      title: currentRegion.value
-    })
-  }
+  const coords = regionCoords[currentRegion.value]
+  map.value = L.map('map').setView([coords.lat, coords.lng], 14)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map.value)
+  marker.value = L.marker([coords.lat, coords.lng]).addTo(map.value)
 })
 
-// 監聽地區切換更新地圖
 watch(currentRegion, (newRegion) => {
   const coords = regionCoords[newRegion]
   if (map.value && marker.value) {
-    map.value.setCenter(coords)
-    marker.value.setPosition(coords)
-    marker.value.setTitle(newRegion)
+    map.value.setView([coords.lat, coords.lng], 14)
+    marker.value.setLatLng([coords.lat, coords.lng])
   }
 })
 
