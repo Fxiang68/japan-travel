@@ -1,29 +1,106 @@
 <script setup>
 import { ref } from 'vue'
 
-// 圖片匯入（可多張）
+// 圖片匯入
 import terraceImg from '../assets/29terrace.png'
 import udonImg from '../assets/udon.png'
+import udon2Img from '../assets/udon2.png'
 import harbsImg from '../assets/harbs.png'
 import afuriImg from '../assets/afuri.png'
 import lemonImg from '../assets/lemon.png'
+import lamanImg from '../assets/laman.png'
 import eggImg from '../assets/egg.png'
-
+import bbqImg from '../assets/bbq.png'
+import dountImg from '../assets/dount.png'
+import MMImg from '../assets/MM.png'
+import riceImg from '../assets/rice.png'
+import rice2Img from '../assets/rice2.png'
+import cakeImg from '../assets/cake.png'
 import coffee1 from '../assets/coffee1.png'
 import coffee2 from '../assets/coffee2.png'
 
 const coffeeImgs = [coffee1, coffee2]
+const defaultImg = 'https://via.placeholder.com/300x200?text=Coming+Soon'
 
-const currentRegion = ref('東京')
-const regions = ['東京', '新宿', '京都']
+const currentRegion = ref('新宿Shinjuku')
+const regions = ['新宿Shinjuku', '澀谷Shibuya', '麻布區Minato', '千代田區Minato']
 
-// 控制每個分類是否展開
 const expanded = ref({
-  bbq: true,
-  noodles: true,
-  dessert: true,
-  breakfast: true
+  新宿Shinjuku: { bbq: true, noodles: true, dessert: true, breakfast: true },
+  澀谷Shibuya: { bbq: true, noodles: true, rice: true, dessert: true },
+  麻布區Minato: { bbq: true, noodles: true, rice: true, dessert: true },
+  千代田區Minato: { bbq: true, noodles: true, rice: true, dessert: true }
 })
+
+const foodData = {
+  '新宿Shinjuku': {
+    bbq: [
+      { img: terraceImg, name: '燒肉 29 Terrace', desc: '高質感和牛吃到飽套餐，視覺與味覺雙享受！', url: 'https://maps.app.goo.gl/7xvk3Q1C68tT3f226' },
+      { img: lemonImg, name: '東京牛舌の檸檬', desc: '新宿燒肉 厚切牛舌超人氣！', url: 'https://maps.app.goo.gl/odUJCcKZPaDd9UQ98' }
+    ],
+    noodles: [
+      { img: udonImg, name: 'うどん 慎', desc: '彈牙手打烏龍麵，排隊也值得一試的超人氣名店！', url: 'https://maps.app.goo.gl/qH7kNU4XGhBcdWfY9' },
+      { img: afuriImg, name: 'AFURI 新宿', desc: 'AFURI阿夫利鹽柚子拉麵是多人推薦的東京美食', url: 'https://maps.app.goo.gl/sXucYTsqfkDVuxMJ7' }
+    ],
+    dessert: [
+      { img: harbsImg, name: 'HARBS LUMINE EST新宿店', desc: '大人氣的水果千層蛋糕甜點', url: 'https://maps.app.goo.gl/Fte6hGwsc1QB1zfk6' }
+    ],
+    breakfast: [
+      { img: eggImg, name: 'eggslut Shinjuku Southern Terrace', desc: '新宿早餐首選', url: 'https://maps.app.goo.gl/d4qr3JJWewF9E5PH9' }
+    ]
+  },
+  '澀谷Shibuya': {
+    bbq: [
+      { img: MMImg, name: 'Kushiyaki Meat Man', desc: '精緻串燒的時尚居酒屋', url: 'https://maps.app.goo.gl/ZX9fg6qpBGffgkVr6' }
+    ],
+    noodles: [
+      { img: udon2Img, name: 'Yamashita Honki Udon', desc: '創意奶油明太子起司烏龍麵推薦', url: 'https://maps.app.goo.gl/4mUmo5td4NjaD19A8' }
+    ],
+    rice: [
+      { img: riceImg, name: 'かつお食堂', desc: '涉谷超人氣柴魚片飯專門店', url: 'https://maps.app.goo.gl/ZmZWL1EfUn5S1wug7' },
+      { img: rice2Img, name: 'Kogaiken', desc: '明星都愛吃的日本人靈魂美食蛋包飯', url: 'https://maps.app.goo.gl/Fd6toHbZq8VDFQCS6' }
+    ],
+    dessert: [
+      { img: coffeeImgs, name: 'HATTO COFFEE 咖啡&簡餐', desc: '神宮前好喝咖啡，還有客製化3D奶泡', url: 'https://maps.app.goo.gl/ncX7DQUqx334JnvU6', multiple: true },
+      { img: dountImg, name: "I'm donut ?", desc: '生甜甜圈紅到東京', url: 'https://maps.app.goo.gl/y1nW1S2Bp3yaJssW8' },
+      { img: cakeImg, name: 'Afternoon Tea •LOVE & TABLE', desc: '日本人氣甜點店', url: 'https://maps.app.goo.gl/qnx58rybf9K8YgUu8' }
+    ]
+  },
+  '麻布區Minato': {
+    bbq: [
+      { img: bbqImg, name: '爐端武藏', desc: '東京人氣居酒屋「爐端燒武藏」坐等師傅現烤美食給你吃！', url: 'https://maps.app.goo.gl/29b75YNGc1aok1Rm6' }
+    ],
+    noodles: [
+      { img: lamanImg, name: '富喜製麺研究所 六本木店', desc: '老字號拉麵店', url: 'https://maps.app.goo.gl/BKkuRQQCCsy8v4En8' }
+    ],
+    rice: [
+      { img: '', name: '', desc: '', url: '' },
+      { img: rice2Img, name: '', desc: '', url: '' }
+    ],
+    dessert: [
+      { img: '', name: '', desc: '', url: '' },
+      { img: '', name: '', desc: '', url: '' },
+      { img: '', name: '', desc: '', url: '' }
+    ]
+  },
+  '千代田區Minato': {
+    bbq: [
+      { img: '', name: '', desc: '', url: '' }
+    ],
+    noodles: [
+      { img: '', name: '', desc: '', url: '' }
+    ],
+    rice: [
+      { img: '', name: '', desc: '', url: '' },
+      { img: '', name: '', desc: '', url: '' }
+    ],
+    dessert: [
+      { img: '', name: '', desc: '', url: '' },
+      { img: '', name: '', desc: '', url: '' },
+      { img: '', name: '', desc: '', url: '' }
+    ]
+  }
+}
 </script>
 
 <template>
@@ -40,79 +117,31 @@ const expanded = ref({
       </button>
     </div>
 
-    <!-- 新宿 -->
-    <div v-if="currentRegion === '新宿'">
-      <h3>新宿美食</h3>
+    <div v-for="(categories, region) in foodData" v-show="currentRegion === region">
+      <h3>{{ region }} 美食</h3>
+      <div v-for="(items, category) in categories" :key="category">
+        <h4
+          @click="expanded[region][category] = !expanded[region][category]"
+          style="cursor: pointer;"
+        >
+          🍽 {{ category }} {{ expanded[region][category] ? '▾' : '▸' }}
+        </h4>
 
-      <!-- 分類：燒肉 -->
-      <h4 @click="expanded.bbq = !expanded.bbq" style="cursor: pointer;">🍖 燒肉 {{ expanded.bbq ? '▾' : '▸' }}</h4>
-      <div class="food-container" v-if="expanded.bbq">
-        <div class="food-card">
-          <img :src="terraceImg" />
-          <h3>燒肉 29 Terrace</h3>
-          <p>高質感和牛吃到飽套餐，視覺與味覺雙享受！</p>
-          <a href="https://maps.app.goo.gl/7xvk3Q1C68tT3f226" target="_blank">查看 Google 地圖</a>
-        </div>
-
-        <div class="food-card">
-          <img :src="lemonImg" />
-          <h3>東京牛舌の檸檬</h3>
-          <p>新宿燒肉 厚切牛舌超人氣！</p>
-          <a href="https://maps.app.goo.gl/odUJCcKZPaDd9UQ98" target="_blank">查看 Google 地圖</a>
-        </div>
-      </div>
-
-      <!-- 分類：拉麵／烏龍麵 -->
-      <h4 @click="expanded.noodles = !expanded.noodles" style="cursor: pointer;">🍜 拉麵 / 烏龍麵 {{ expanded.noodles ? '▾' : '▸' }}</h4>
-      <div class="food-container" v-if="expanded.noodles">
-        <div class="food-card">
-          <img :src="udonImg" />
-          <h3>うどん 慎</h3>
-          <p>彈牙手打烏龍麵，排隊也值得一試的超人氣名店！</p>
-          <a href="https://maps.app.goo.gl/qH7kNU4XGhBcdWfY9" target="_blank">查看 Google 地圖</a>
-        </div>
-
-        <div class="food-card">
-          <img :src="afuriImg" />
-          <h3>AFURI 新宿</h3>
-          <p>AFURI阿夫利鹽柚子拉麵是多人推薦的東京美食</p>
-          <a href="https://maps.app.goo.gl/sXucYTsqfkDVuxMJ7" target="_blank">查看 Google 地圖</a>
-        </div>
-      </div>
-
-      <!-- 分類：甜點／咖啡 -->
-      <h4 @click="expanded.dessert = !expanded.dessert" style="cursor: pointer;">🍰 甜點 / 咖啡 {{ expanded.dessert ? '▾' : '▸' }}</h4>
-      <div class="food-container" v-if="expanded.dessert">
-        <div class="food-card">
-          <img :src="harbsImg" />
-          <h3>HARBS LUMINE EST新宿店</h3>
-          <p>大人氣的水果千層蛋糕甜點</p>
-          <a href="https://maps.app.goo.gl/Fte6hGwsc1QB1zfk6" target="_blank">查看 Google 地圖</a>
-        </div>
-
-        <div class="food-card">
-          <div class="scroll-imgs">
-            <img
-              v-for="(img, index) in coffeeImgs"
-              :key="index"
-              :src="img"
-              alt="HATTO COFFEE"
-            />
+        <div v-if="expanded[region][category]" class="food-container">
+          <div
+            v-for="(item, index) in items"
+            :key="index"
+            class="food-card"
+            :class="{ upcoming: !item.name || !item.url }"
+          >
+            <div v-if="item.multiple" class="scroll-imgs">
+              <img v-for="(img, i) in item.img" :key="i" :src="img" />
+            </div>
+            <img v-else :src="item.img || defaultImg" />
+            <h3>{{ item.name || '敬請期待' }}</h3>
+            <p>{{ item.desc || '更多資訊即將公開' }}</p>
+            <a v-if="item.url" :href="item.url" target="_blank">查看 Google 地圖</a>
           </div>
-          <h3>HATTO COFFEE 咖啡&簡餐</h3>
-          <p>神宮前好喝咖啡，還有客製化3D奶泡</p>
-          <a href="https://maps.app.goo.gl/ncX7DQUqx334JnvU6" target="_blank">查看 Google 地圖</a>
-        </div>
-      </div>
-
-      <!-- 分類：早餐 -->
-      <h4 @click="expanded.breakfast = !expanded.breakfast" style="cursor: pointer;">🍳 早餐 {{ expanded.breakfast ? '▾' : '▸' }}</h4>
-      <div class="food-container" v-if="expanded.breakfast">
-        <div class="food-card">
-          <img :src="eggImg" />
-          <h3>漢堡 eggslut Shinjuku Southern Terrace</h3>
-          <p>新宿早餐首選</p>
-          <a href="https://maps.app.goo.gl/d4qr3JJWewF9E5PH9" target="_blank">查看 Google 地圖</a>
         </div>
       </div>
     </div>
@@ -186,5 +215,10 @@ const expanded = ref({
 .food-card a:hover {
   background-color: #a6dce3;
   color: white;
+}
+.upcoming {
+  opacity: 0.5;
+  filter: grayscale(100%);
+  pointer-events: none;
 }
 </style>
