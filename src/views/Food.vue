@@ -62,7 +62,7 @@ function flyToRestaurant(lat, lng, name) {
   }
 }
 
-import { fooddata as foodData } from '@/data/foodData.js'
+import { foodData as foodData } from '@/data/foodData.js'
 const defaultImg = 'https://via.placeholder.com/300x200?text=Coming+Soon'
 </script>
 
