@@ -102,6 +102,10 @@ function flyToRestaurant(lat, lng, name) {
     }
   }
 }
+const openGoogleMaps = (lat, lng) => {
+  const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
+  window.open(url, '_blank')
+}
 
 const foodData = {
   '新宿Shinjuku': {
@@ -290,9 +294,8 @@ const foodData = {
 /* 食物卡片 */
 .food-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px; /* 原本 20px 改為 24px */
-  padding: 16px; /* 加 padding 避免貼邊 */
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
 }
 .food-card {
   background: #ffffff;
