@@ -23,7 +23,8 @@ import shisa2Img from '../assets/shisa2.png'
 import coffee1 from '../assets/coffee1.png'
 import coffee2 from '../assets/coffee2.png'
 
-const coffeeImgs = [coffee1, coffee2]
+export const coffeeImgs = [coffee1, coffee2]
+
 
 
 
@@ -55,7 +56,7 @@ export const fooddata = {
       { img: riceImg, name: 'かつお食堂', desc: '涉谷超人氣柴魚片飯專門店', url: 'https://maps.app.goo.gl/ZmZWL1EfUn5S1wug7', lat: 35.6623, lng: 139.7031 },
     ],
     dessert: [
-      { img: coffeeImgs, name: 'HATTO COFFEE 咖啡&簡餐', desc: '神宮前好喝咖啡，還有客製化3D奶泡', url: 'https://maps.app.goo.gl/ncX7DQUqx334JnvU6', lat: 35.6679, lng: 139.7126, multiple: true },
+      { img: [coffee1, coffee2], name: 'HATTO COFFEE 咖啡&簡餐', desc: '神宮前好喝咖啡，還有客製化3D奶泡', url: 'https://maps.app.goo.gl/ncX7DQUqx334JnvU6', lat: 35.6679, lng: 139.7126, multiple: true },
       { img: dountImg, name: "I'm donut ?", desc: '生甜甜圈紅到東京', url: 'https://maps.app.goo.gl/y1nW1S2Bp3yaJssW8', lat: 35.6593, lng: 139.7025 },
       { img: cakeImg, name: 'Afternoon Tea •LOVE & TABLE', desc: '日本人氣甜點店', url: 'https://maps.app.goo.gl/qnx58rybf9K8YgUu8', lat: 35.6621, lng: 139.7030 }
     ]

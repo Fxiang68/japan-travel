@@ -3,6 +3,7 @@ import { ref, onMounted, watch } from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
+
 // Leaflet 地圖初始化與控制
 const currentRegion = ref('新宿Shinjuku')
 const regions = ['新宿Shinjuku', '澀谷Shibuya', '麻布區Nishiazabu', '千代田區Chiyoda City','港區Minato City','淺草台東區Taito City','文京區Bunkyo City','人形町區Chuo City']
@@ -61,7 +62,8 @@ function flyToRestaurant(lat, lng, name) {
     }
   }
 }
-import { fooddata as foodData } from '../data/fooddata.js'
+
+import { fooddata as foodData, coffeeImgs } from '../data/fooddata.js'
 
 
 const defaultImg = 'https://via.placeholder.com/300x200?text=Coming+Soon'
