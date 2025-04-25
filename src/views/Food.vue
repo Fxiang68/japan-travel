@@ -218,6 +218,7 @@ const foodData = {
     <!-- ✅ 地圖放最底下 -->
     <h4 style="margin-top: 30px;">{{ currentRegion }} 地區地圖</h4>
     <div id="map"></div>
+    <div id="map" style="height: 500px; width: 100%;"></div>
   </div>
 </template>
 
