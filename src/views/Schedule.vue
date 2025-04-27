@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
+// 地區選單
 const currentDay = ref('Day 1')
 const days = ['Day 1', 'Day 2']
 
@@ -12,26 +13,32 @@ const schedules = {
       emoji: '☕️',
       title: '上島咖啡',
       description: '品嚐道地日式早餐',
-      link: 'https://maps.app.goo.gl/xxx'
+      link: 'https://maps.app.goo.gl/xxx1'
     },
     {
       time: '10:30',
       emoji: '🎡',
       title: '東京巨蛋城',
       description: '遊樂園與購物中心',
-      link: 'https://maps.app.goo.gl/xxx'
+      link: 'https://maps.app.goo.gl/xxx2'
     },
     {
       time: '13:00',
       emoji: '🥩',
       title: '利久牛舌',
       description: '仙台人氣牛舌專賣店',
-      link: 'https://maps.app.goo.gl/xxx'
+      link: 'https://maps.app.goo.gl/xxx3'
     }
   ],
-  'Day 2': [
-    // 之後可以加 Day2 的資料
-  ]
+  'Day 2': []
+}
+
+// 根據時間設定線條顏色
+function getLineColor(time) {
+  const [hour] = time.split(':').map(Number)
+  if (hour < 12) return '#facc15' // 黃色
+  if (hour < 18) return '#60a5fa' // 藍色
+  return '#f472b6'                // 深粉色
 }
 </script>
 
@@ -54,15 +61,21 @@ const schedules = {
       <div
         v-for="(item, index) in schedules[currentDay]"
         :key="index"
-        class="timeline-card"
+        class="timeline-item"
       >
-        <div class="time">{{ item.time }}</div>
-        <div class="location">
-          <span class="emoji">{{ item.emoji }}</span>
-          <span class="title">{{ item.title }}</span>
+        <div
+          class="timeline-line"
+          :style="{ backgroundColor: getLineColor(item.time) }"
+        ></div>
+        <div class="timeline-content">
+          <div class="time">{{ item.time }}</div>
+          <a :href="item.link" target="_blank" class="title-link">
+            <div class="title">
+              {{ item.emoji }} {{ item.title }}
+            </div>
+          </a>
+          <div class="description">{{ item.description }}</div>
         </div>
-        <div class="description">{{ item.description }}</div>
-        <a :href="item.link" target="_blank" class="map-link">查看 Google 地圖</a>
       </div>
     </div>
   </div>
@@ -88,48 +101,63 @@ const schedules = {
   color: white;
 }
 
+/* 時間軸整體 */
 .timeline {
   margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  position: relative;
 }
-.timeline-card {
-  background: white;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  text-align: left;
+.timeline-item {
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 40px;
+}
+.timeline-line {
+  position: absolute;
+  top: 0;
+  left: 18px;
+  width: 4px;
+  height: 100%;
+  background-color: #ddd;
+  z-index: 1;
+  border-radius: 2px;
+}
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 16px;
+  height: 16px;
+  background-color: #f87171; /* 紅色中心 */
+  border: 4px solid #fff;    /* 白色外框 */
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.timeline-content {
+  background: none;
+  padding: 0;
 }
 .time {
-  color: #a6dce3;
+  color: #60a5fa;
   font-weight: bold;
   font-size: 16px;
 }
-.location {
+.title-link {
+  text-decoration: none;
+}
+.title {
   margin: 8px 0 4px;
   font-size: 18px;
   font-weight: bold;
-  color: #f2859a;
+  color: #f472b6;
 }
-.emoji {
-  margin-right: 8px;
+.title:hover {
+  text-decoration: underline;
 }
 .description {
   margin-bottom: 10px;
   color: #666;
   font-size: 14px;
-}
-.map-link {
-  display: inline-block;
-  padding: 6px 12px;
-  background-color: #f6d5d8;
-  color: white;
-  border-radius: 20px;
-  text-decoration: none;
-  font-size: 13px;
-}
-.map-link:hover {
-  background-color: #f2859a;
 }
 </style>
