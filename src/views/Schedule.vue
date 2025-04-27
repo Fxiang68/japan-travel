@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 // 地區選單
 const currentDay = ref('Day 1')
-const days = ['Day 1', 'Day 2']
+const days = ['Day 1', 'Day 2','Day 3', 'Day 4', 'Day 5', 'Day 6']
 
 // 行程資料
 const schedules = {
