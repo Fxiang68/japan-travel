@@ -20,6 +20,16 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
+
+
+
+h1 {
+  text-align: center; /* 水平置中 */
+  margin-top: 20px;    /* 上方留一點距離，美觀 */
+  font-size: 2.5rem;   /* 字可以更大，看起來更有氣勢 */
+  font-weight: bold;
+}
+
 const images = [
   '/images/slide1.jpg',
   '/images/slide2.jpg',
