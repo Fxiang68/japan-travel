@@ -44,8 +44,8 @@ onMounted(() => {
 <style scoped>
 .slideshow {
   width: 100%;
-  max-width: 600px;
-  height: 350px;
+  max-width: 1000px; /* 原本600px，現在放大到1000px */
+  height: 600px;      /* 原本350px，現在放大到600px */
   margin: 20px auto;
   overflow: hidden;
   position: relative;
