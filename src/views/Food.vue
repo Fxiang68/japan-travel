@@ -253,7 +253,6 @@ const foodData = {
           </div> <!-- food-card v-for 結束 -->
         </div> <!-- 展開的 food-grid 結束 -->
       </div> <!-- 每個 category-section v-for 結束 -->
-
     </div> <!-- v-if 有資料時結束 -->
 
     <div v-else>
@@ -263,8 +262,14 @@ const foodData = {
     <h4 class="map-title">{{ currentRegion }} 地區地圖</h4>
     <div id="map"></div>
 
+    <!-- 🖋️ 正確的 Footer 放在 container 裡面 -->
+    <footer class="footer">
+      © 作者 Wendy Fang
+    </footer>
+
   </div> <!-- container 結束 -->
 </template>
+
 
 
 <style scoped>
@@ -410,5 +415,12 @@ const foodData = {
 .store-btn:hover {
   background-color: #666;
 }
-
+.footer {
+  margin-top: auto;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
+  border-top: 1px solid #f6d5d8;
+}
 </style>
