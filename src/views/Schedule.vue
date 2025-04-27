@@ -71,12 +71,6 @@ const schedules = {
       link: 'https://maps.app.goo.gl/MWy6ztmSEDDewEAN7'
     },
     {
-      time: '18:30',
-      emoji: '📌',
-      title: '人形町今半 壽喜燒銀座店',
-      link: 'https://maps.app.goo.gl/MWy6ztmSEDDewEAN7'
-    },
-    {
       time: '20:00',
       emoji: '📌',
       title: 'ROKUSAN ANGEL Burlesque Tokyo',
