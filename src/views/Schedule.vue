@@ -9,28 +9,94 @@ const days = ['Day 1', 'Day 2']
 const schedules = {
   'Day 1': [
     {
-      time: '09:00',
-      emoji: '☕️',
-      title: '上島咖啡',
-      description: '品嚐道地日式早餐',
-      link: 'https://maps.app.goo.gl/xxx1'
+      time: '8:30~12:30',
+      emoji: '✈',
+      title: 'TPE-NRT',
     },
     {
-      time: '10:30',
-      emoji: '🎡',
-      title: '東京巨蛋城',
-      description: '遊樂園與購物中心',
-      link: 'https://maps.app.goo.gl/xxx2'
+      time: '13:30',
+      emoji: '📌',
+      title: '淺草寺',
+      description: '路線建議：地鐵「淺草站」走三分鐘 → 雷門 →  接仲見世通（邊吃邊買約0.5~1hr）  → 穿過寶藏門 → 到淺草寺參拜 → 旁邊的淺草神社',
+      link: 'https://maps.app.goo.gl/Rc8wGEvB5DXgiwBE6'
     },
     {
-      time: '13:00',
-      emoji: '🥩',
-      title: '利久牛舌',
-      description: '仙台人氣牛舌專賣店',
-      link: 'https://maps.app.goo.gl/xxx3'
-    }
+      time: '15:30',
+      emoji: '📌',
+      title: '晴空塔',
+      description: '從淺草走淺草站往北沿著隅田公園走大概五分鐘，新開設一條「隅田川步道（Sumida River Walk）10 分鐘就可以到晴空塔',
+      link: 'https://www.tokyo-skytree.jp/cn_t/'
+    },
+    {
+      time: '16:30',
+      emoji: '📌',
+      title: 'YOKAZATO',
+    },
+    {
+      time: '18:30',
+      emoji: '📌',
+      title: 'Mitakayaみたかや酒場',
+      link:'https://maps.app.goo.gl/s5Jmoz4rmbgrmohbA'
+    },
   ],
-  'Day 2': []
+  'Day 2': [
+  {
+      time: '11:00',
+      emoji: '📌',
+      title: '銀座ひつまぶし 鰻魚飯',
+      link: 'https://maps.app.goo.gl/yQYWXMJu69pR8Uok8'
+    },
+    {
+      time: '12:00',
+      emoji: '📌',
+      title: '銀座商圈',
+      description: '1. 銀座三越 2. 銀座藝術水族館 3. 和光百貨本館 4. 松屋 銀座店 5. UNIQLO銀座店 6. 無印良品銀座 7. GINZA SIX 8. 東急PLAZA 銀座 9. 銀座伊東屋本店 10. 銀座精品名牌 11. 歌舞伎座'
+    },
+    {
+      time: '14:00',
+      emoji: '📌',
+      title: '遊走東京車站&皇居',
+    },
+    {
+      time: '15:30',
+      emoji: '📌',
+      title: '東京鐵塔',
+      description: '地點：東京鐵塔 (Tokyo Tower) 營業時間：09:00–23:00 (周一至周日)',
+      link: 'https://bobbyworld.tw/2024-01-04-2662/'
+    },
+    {
+      time: '18:30',
+      emoji: '📌',
+      title: '人形町今半 壽喜燒銀座店',
+      link: 'https://maps.app.goo.gl/MWy6ztmSEDDewEAN7'
+    },
+    {
+      time: '18:30',
+      emoji: '📌',
+      title: '人形町今半 壽喜燒銀座店',
+      link: 'https://maps.app.goo.gl/MWy6ztmSEDDewEAN7'
+    },
+    {
+      time: '20:00',
+      emoji: '📌',
+      title: 'ROKUSAN ANGEL Burlesque Tokyo',
+      description: '第二場時間:20:00~ Open, 20:30~ Show, 22:00~ 退場',
+      link: 'https://rokusanangel.jp/booking/'
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ]
 }
 
 // 根據時間設定線條顏色
@@ -124,12 +190,12 @@ function getLineColor(time) {
 .timeline-item::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 10px;
-  width: 16px;
-  height: 16px;
-  background-color: #f87171; /* 紅色中心 */
-  border: 4px solid #fff;    /* 白色外框 */
+  top: 3px;        /* ⭐ 讓小圓點稍微往下，對齊線條中間 */
+  left: 13px;      /* ⭐ 讓圓點偏右一點，跟線更貼齊 */
+  width: 12px;     /* 🔥 小一點的圓直徑 */
+  height: 12px;
+  background-color: #781010; /* 深紅色中心 */
+  border: 3px solid #fff;    /* 白色外框也縮小一圈 */
   border-radius: 50%;
   z-index: 2;
 }
@@ -139,7 +205,7 @@ function getLineColor(time) {
   padding: 0;
 }
 .time {
-  color: #60a5fa;
+  color: #60c4fa;
   font-weight: bold;
   font-size: 16px;
 }
@@ -150,7 +216,7 @@ function getLineColor(time) {
   margin: 8px 0 4px;
   font-size: 18px;
   font-weight: bold;
-  color: #f472b6;
+  color: #000000;
 }
 .title:hover {
   text-decoration: underline;
