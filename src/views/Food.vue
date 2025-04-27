@@ -3,6 +3,7 @@ import { ref, onMounted, watch } from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
+
 // 圖片匯入
 import terraceImg from '../assets/29terrace.png'
 import udonImg from '../assets/udon.png'
@@ -106,74 +107,78 @@ const openGoogleMaps = (lat, lng) => {
   const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
   window.open(url, '_blank')
 }
+const openStore = (url) => {
+  window.open(url, '_blank')
+}
+
 
 const foodData = {
   '新宿Shinjuku': {
     bbq: [
-      { img: terraceImg, name: '燒肉 29 Terrace', desc: '高質感和牛吃到飽套餐，視覺與味覺雙享受！', url: 'https://maps.app.goo.gl/7xvk3Q1C68tT3f226', lat: 35.6917, lng: 139.7016 },
-      { img: lemonImg, name: '東京牛舌の檸檬', desc: '新宿燒肉 厚切牛舌超人氣！', url: 'https://maps.app.goo.gl/odUJCcKZPaDd9UQ98', lat: 35.6923, lng: 139.7038 }
+      { img: terraceImg, name: '燒肉 29 Terrace', desc: '高質感和牛吃到飽套餐，視覺與味覺雙享受！', link: 'https://maps.app.goo.gl/7xvk3Q1C68tT3f226', lat: 35.6917, lng: 139.7016 },
+      { img: lemonImg, name: '東京牛舌の檸檬', desc: '新宿燒肉 厚切牛舌超人氣！', link: 'https://maps.app.goo.gl/odUJCcKZPaDd9UQ98', lat: 35.6923, lng: 139.7038 }
     ],
     noodles: [
-      { img: udonImg, name: 'うどん 慎', desc: '彈牙手打烏龍麵，排隊也值得一試的超人氣名店！', url: 'https://maps.app.goo.gl/tuxUKT9fWNzsTJQe6', lat: 35.6912, lng: 139.6995 },
-      { img: afuriImg, name: 'AFURI 新宿', desc: 'AFURI阿夫利鹽柚子拉麵是多人推薦的東京美食', url: 'https://maps.app.goo.gl/sXucYTsqfkDVuxMJ7', lat: 35.6907, lng: 139.7009 }
+      { img: udonImg, name: 'うどん 慎', desc: '彈牙手打烏龍麵，排隊也值得一試的超人氣名店！', link: 'https://maps.app.goo.gl/tuxUKT9fWNzsTJQe6', lat: 35.6912, lng: 139.6995 },
+      { img: afuriImg, name: 'AFURI 新宿', desc: 'AFURI阿夫利鹽柚子拉麵是多人推薦的東京美食', link: 'https://maps.app.goo.gl/sXucYTsqfkDVuxMJ7', lat: 35.6907, lng: 139.7009 }
     ],
     dessert: [
-      { img: harbsImg, name: 'HARBS LUMINE EST新宿店', desc: '大人氣的水果千層蛋糕甜點', url: 'https://maps.app.goo.gl/Fte6hGwsc1QB1zfk6', lat: 35.6916, lng: 139.7023 }
+      { img: harbsImg, name: 'HARBS LUMINE EST新宿店', desc: '大人氣的水果千層蛋糕甜點', link: 'https://maps.app.goo.gl/Fte6hGwsc1QB1zfk6', lat: 35.6916, lng: 139.7023 }
     ],
     breakfast: [
-      { img: eggImg, name: 'eggslut Shinjuku Southern Terrace', desc: '新宿早餐首選', url: 'https://maps.app.goo.gl/d4qr3JJWewF9E5PH9', lat: 35.6889, lng: 139.7005 }
+      { img: eggImg, name: 'eggslut Shinjuku Southern Terrace', desc: '新宿早餐首選', link: 'https://maps.app.goo.gl/d4qr3JJWewF9E5PH9', lat: 35.6889, lng: 139.7005 }
     ]
   },
   '澀谷Shibuya': {
     bbq: [
-      { img: MMImg, name: 'Kushiyaki Meat Man', desc: '精緻串燒的時尚居酒屋', url: 'https://maps.app.goo.gl/ZX9fg6qpBGffgkVr6', lat: 35.6591, lng: 139.7036 }
+      { img: MMImg, name: 'Kushiyaki Meat Man', desc: '精緻串燒的時尚居酒屋', link: 'https://maps.app.goo.gl/ZX9fg6qpBGffgkVr6', lat: 35.6591, lng: 139.7036 }
     ],
     noodles: [
-      { img: udon2Img, name: 'Yamashita Honki Udon', desc: '創意奶油明太子起司烏龍麵推薦', url: 'https://maps.app.goo.gl/4mUmo5td4NjaD19A8', lat: 35.6608, lng: 139.7042 }
+      { img: udon2Img, name: 'Yamashita Honki Udon', desc: '創意奶油明太子起司烏龍麵推薦', link: 'https://maps.app.goo.gl/4mUmo5td4NjaD19A8', lat: 35.6608, lng: 139.7042 }
     ],
     rice: [
-      { img: riceImg, name: 'かつお食堂', desc: '涉谷超人氣柴魚片飯專門店', url: 'https://maps.app.goo.gl/ZmZWL1EfUn5S1wug7', lat: 35.6623, lng: 139.7031 }
+      { img: riceImg, name: 'かつお食堂', desc: '涉谷超人氣柴魚片飯專門店', link: 'https://maps.app.goo.gl/ZmZWL1EfUn5S1wug7', lat: 35.6623, lng: 139.7031 }
     ],
     dessert: [
-      { img: coffeeImgs[0], name: 'HATTO COFFEE 咖啡&簡餐', desc: '神宮前好喝咖啡，還有客製化3D奶泡', url: 'https://maps.app.goo.gl/ncX7DQUqx334JnvU6', lat: 35.6679, lng: 139.7126 },
-      { img: dountImg, name: "I'm donut ?", desc: '生甜甜圈紅到東京', url: 'https://maps.app.goo.gl/y1nW1S2Bp3yaJssW8', lat: 35.6593, lng: 139.7025 },
-      { img: cakeImg, name: 'Afternoon Tea •LOVE & TABLE', desc: '日本人氣甜點店', url: 'https://maps.app.goo.gl/qnx58rybf9K8YgUu8', lat: 35.6621, lng: 139.7030 }
+      { img: coffeeImgs[0], name: 'HATTO COFFEE 咖啡&簡餐', desc: '神宮前好喝咖啡，還有客製化3D奶泡', link: 'https://maps.app.goo.gl/ncX7DQUqx334JnvU6', lat: 35.6679, lng: 139.7126 },
+      { img: dountImg, name: "I'm donut ?", desc: '生甜甜圈紅到東京', link: 'https://maps.app.goo.gl/y1nW1S2Bp3yaJssW8', lat: 35.6593, lng: 139.7025 },
+      { img: cakeImg, name: 'Afternoon Tea •LOVE & TABLE', desc: '日本人氣甜點店', link: 'https://maps.app.goo.gl/qnx58rybf9K8YgUu8', lat: 35.6621, lng: 139.7030 }
     ]
   },
   '麻布區Nishiazabu': {
     bbq: [{ img: null, name: null, desc: null }],
     noodles: [{ img: null, name: null, desc: null }],
-    rice: [{ img: rice2Img, name: 'Kogaiken', desc: '明星都愛吃的日本人靈魂美食蛋包飯', url: 'https://maps.app.goo.gl/Fd6toHbZq8VDFQCS6', lat: 35.6627, lng: 139.7028 }],
+    rice: [{ img: rice2Img, name: 'Kogaiken', desc: '明星都愛吃的日本人靈魂美食蛋包飯', link: 'https://maps.app.goo.gl/Fd6toHbZq8VDFQCS6', lat: 35.6627, lng: 139.7028 }],
     dessert: [{ img: null, name: null, desc: null }]
   },
   '千代田區Chiyoda City': {
     bbq: [{ img: null, name: null, desc: null }],
     noodles: [{ img: null, name: null, desc: null }],
     rice: [{ img: null, name: null, desc: null }],
-    dessert: [{ img: popoImg, name: 'PATISSERIE TEN&', desc: '東京泡芙天花板', url: 'https://maps.app.goo.gl/f2pzHGDGNxT67WBD9', lat: 35.6930, lng: 139.7530 }]
+    dessert: [{ img: popoImg, name: 'PATISSERIE TEN&', desc: '東京泡芙天花板', link: 'https://maps.app.goo.gl/f2pzHGDGNxT67WBD9', lat: 35.6930, lng: 139.7530 }]
   },
   '港區Minato City': {
     bbq: [
-      { img: bbqImg, name: '爐端武藏', desc: '人氣爐端燒居酒屋', url: 'https://maps.app.goo.gl/rWVskEE77DjQPhJa7', lat: 35.6580, lng: 139.7514 },
-      { img: bbq2Img, name: '燒肉JUMBO', desc: '白金黑毛和牛專賣', url: 'https://maps.app.goo.gl/psVrbXnBvrNdkFXE6', lat: 35.6585, lng: 139.7520 },
-      { img: bbq3Img, name: '燒肉Kunimoto新館', desc: '多次獲獎名店', url: 'https://maps.app.goo.gl/nMZLTEBUnZBz2gkv8', lat: 35.6578, lng: 139.7505 }
+      { img: bbqImg, name: '爐端武藏', desc: '人氣爐端燒居酒屋', link: 'https://maps.app.goo.gl/rWVskEE77DjQPhJa7', lat: 35.6580, lng: 139.7514 },
+      { img: bbq2Img, name: '燒肉JUMBO', desc: '白金黑毛和牛專賣', link: 'https://maps.app.goo.gl/psVrbXnBvrNdkFXE6', lat: 35.6585, lng: 139.7520 },
+      { img: bbq3Img, name: '燒肉Kunimoto新館', desc: '多次獲獎名店', link: 'https://maps.app.goo.gl/nMZLTEBUnZBz2gkv8', lat: 35.6578, lng: 139.7505 }
     ],
-    noodles: [{ img: lamanImg, name: '富喜製麵研究所 六本木店', desc: '東京拉麵老字號', url: 'https://maps.app.goo.gl/ogH4kbGN56J6sSSa8', lat: 35.6620, lng: 139.7320 }],
+    noodles: [{ img: lamanImg, name: '富喜製麵研究所 六本木店', desc: '東京拉麵老字號', link: 'https://maps.app.goo.gl/ogH4kbGN56J6sSSa8', lat: 35.6620, lng: 139.7320 }],
     rice: [{ img: null, name: null, desc: null }],
     dessert: [{ img: null, name: null, desc: null }]
   },
   '淺草台東區Taito City': {
     bbq: [{ img: null, name: null, desc: null }],
-    noodles: [{ img: laman2Img, name: '拉麵鴨to蔥', desc: '極致鴨香拉麵', url: 'https://maps.app.goo.gl/yaRBD6u62R6ViRz7A', lat: 35.7145, lng: 139.7785 }],
+    noodles: [{ img: laman2Img, name: '拉麵鴨to蔥', desc: '極致鴨香拉麵', link: 'https://maps.app.goo.gl/yaRBD6u62R6ViRz7A', lat: 35.7145, lng: 139.7785 }],
     rice: [{ img: null, name: null, desc: null }],
-    dessert: [{ img: mochaImg, name: '八十八良葉舍 淺草', desc: '抹茶甜點推薦', url: 'https://maps.app.goo.gl/cEMfiaPgp4VAkpoAA', lat: 35.7132, lng: 139.7778 }]
+    dessert: [{ img: mochaImg, name: '八十八良葉舍 淺草', desc: '抹茶甜點推薦', link: 'https://maps.app.goo.gl/cEMfiaPgp4VAkpoAA', lat: 35.7132, lng: 139.7778 }]
   },
   '文京區Bunkyo City': {
     bbq: [{ img: null, name: null, desc: null }],
     noodles: [{ img: null, name: null, desc: null }],
     rice: [{ img: null, name: null, desc: null }],
     dessert: [{ img: null, name: null, desc: null }],
-    sushi: [{ img: sushiImg, name: 'Sushi Edo Fuji', desc: '巨大海鮮丼飯', url: 'https://maps.app.goo.gl/1UB5frDujraifDPi9', lat: 35.7089, lng: 139.7670 }]
+    sushi: [{ img: sushiImg, name: 'Sushi Edo Fuji', desc: '巨大海鮮丼飯', link: 'https://maps.app.goo.gl/1UB5frDujraifDPi9', lat: 35.7089, lng: 139.7670 }]
   },
   '人形町區Chuo City': {
     bbq: [{ img: null, name: null, desc: null }],
@@ -181,10 +186,10 @@ const foodData = {
     rice: [{ img: null, name: null, desc: null }],
     dessert: [{ img: null, name: null, desc: null }],
     sukiyaki: [
-      { img: shisaImg, name: '人形町今半 壽喜燒', desc: '東京必吃壽喜燒名店', url: 'https://maps.app.goo.gl/Gn4ny3yh9BLzAp9Z7', lat: 35.6867, lng: 139.7818 },
-      { img: shisa2Img, name: '熊本あか牛しゃぶしゃぶ 甲梅 火鍋', desc: '熊本赤牛火鍋專門店', url: 'https://maps.app.goo.gl/v3ERi35Qtq2v9BMf9', lat: 35.6870, lng: 139.7810 }
+      { img: shisaImg, name: '人形町今半 壽喜燒', desc: '東京必吃壽喜燒名店', link: 'https://maps.app.goo.gl/Gn4ny3yh9BLzAp9Z7', lat: 35.6867, lng: 139.7818 },
+      { img: shisa2Img, name: '熊本あか牛しゃぶしゃぶ 甲梅 火鍋', desc: '熊本赤牛火鍋專門店', link: 'https://maps.app.goo.gl/v3ERi35Qtq2v9BMf9', lat: 35.6870, lng: 139.7810 }
     ],
-    attractions:[{img: a1Img, name: '小網神社', desc: '強運厄除、洗錢開金運',url:'https://maps.app.goo.gl/ARv8TD9dbX37rWbc6',lat: 35.6867, lng: 139.7822}]
+    attractions:[{img: a1Img, name: '小網神社', desc: '強運厄除、洗錢開金運',link:'https://maps.app.goo.gl/ARv8TD9dbX37rWbc6',lat: 35.6867, lng: 139.7822}]
   }
 }
 </script>
@@ -210,7 +215,7 @@ const foodData = {
         <h4 class="category-title" @click="toggleCategory(category)">
           {{ category === 'attractions' ? '🗼' : '🍽' }} {{ category }}
           <span v-if="expandedCategories[category]">⏷</span>
-          <span v-else>⏵</span>         
+          <span v-else>⏵</span>
         </h4>
 
         <div v-if="expandedCategories[category]" class="food-grid">
@@ -228,25 +233,39 @@ const foodData = {
             />
             <h5>{{ item.name || '敬請期待' }}</h5>
             <p>{{ item.desc || '更多資訊即將公開' }}</p>
-            <button
-              v-if="item.lat && item.lng"
-              @click.stop="openGoogleMaps(item.lat, item.lng)"
-              class="navigate-button"
-            >
-              Google導航
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+
+            <div class="btn-group">
+              <button
+                v-if="item.lat && item.lng"
+                class="nav-btn"
+                @click.stop="openGoogleMaps(item.lat, item.lng)"
+              >
+                Google導航
+              </button>
+              <button
+                v-if="item.link"
+                class="store-btn"
+                @click.stop="openStore(item.link)"
+              >
+                查看店家
+              </button>
+            </div>
+          </div> <!-- food-card v-for 結束 -->
+        </div> <!-- 展開的 food-grid 結束 -->
+      </div> <!-- 每個 category-section v-for 結束 -->
+
+    </div> <!-- v-if 有資料時結束 -->
+
     <div v-else>
       <p style="color: red;">⚠️ 找不到 {{ currentRegion }} 的美食資料，請稍後再試。</p>
     </div>
 
     <h4 class="map-title">{{ currentRegion }} 地區地圖</h4>
     <div id="map"></div>
-  </div>
+
+  </div> <!-- container 結束 -->
 </template>
+
 
 <style scoped>
 /* 外圍 */
@@ -375,4 +394,21 @@ const foodData = {
   border-radius: 12px;
   border: 1px solid #ccc;
 }
+.btn-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.store-btn {
+  padding: 6px 12px;
+  background-color: #999;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.store-btn:hover {
+  background-color: #666;
+}
+
 </style>
