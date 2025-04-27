@@ -23,12 +23,6 @@ import { ref, onMounted } from 'vue'
 
 
 
-h1 {
-  text-align: center; /* 水平置中 */
-  margin-top: 20px;    /* 上方留一點距離，美觀 */
-  font-size: 2.5rem;   /* 字可以更大，看起來更有氣勢 */
-  font-weight: bold;
-}
 
 const images = [
   '/images/slide1.jpg',
@@ -51,7 +45,23 @@ onMounted(() => {
 })
 </script>
 
+
+
 <style scoped>
+
+.home-wrapper {
+  text-align: center; /* 整個home-wrapper的文字置中 */
+  margin-top: 20px;
+}
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+.emoji-hint {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
 .slideshow {
   width: 100%;
   max-width: 1000px; /* 原本600px，現在放大到1000px */
