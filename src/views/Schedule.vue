@@ -1,8 +1,57 @@
-<template>
-  <div class="schedule-container">
-    <h2>行程表</h2>
+<script setup>
+import { ref } from 'vue'
 
-    <div class="days-switch">
+// 現在選到哪一天
+const currentDay = ref('Day 1')
+
+// Days 列表
+const days = ['Day 1', 'Day 2']
+
+// 每一天的行程時間軸
+const schedule = {
+  'Day 1': [
+    {
+      time: '09:00',
+      title: '上島咖啡',
+      description: '品嚐道地日式早餐',
+      mapLink: 'https://maps.app.goo.gl/你的上島咖啡網址'
+    },
+    {
+      time: '10:30',
+      title: '東京巨蛋城',
+      description: '遊樂園與購物中心',
+      mapLink: 'https://maps.app.goo.gl/你的東京巨蛋城網址'
+    },
+    {
+      time: '13:00',
+      title: '利久牛舌',
+      description: '仙台人氣牛舌專賣店',
+      mapLink: 'https://maps.app.goo.gl/你的利久牛舌網址'
+    },
+  ],
+  'Day 2': [
+    {
+      time: '09:30',
+      title: '晴空塔',
+      description: '眺望東京景色',
+      mapLink: 'https://maps.app.goo.gl/你的晴空塔網址'
+    },
+    {
+      time: '11:00',
+      title: '淺草寺',
+      description: '雷門拍照打卡',
+      mapLink: 'https://maps.app.goo.gl/你的淺草寺網址'
+    }
+  ]
+}
+</script>
+
+<template>
+  <div class="timeline-wrapper">
+    <h2>行程規劃</h2>
+
+    <!-- Day1 Day2 切換按鈕 -->
+    <div class="day-buttons">
       <button
         v-for="day in days"
         :key="day"
@@ -13,151 +62,88 @@
       </button>
     </div>
 
+    <!-- 時間軸 -->
     <div class="timeline">
-      <div
-        class="timeline-item"
-        v-for="(event, index) in schedule[currentDay]"
-        :key="index"
-      >
-        <div class="time">{{ event.time }}</div>
-        <div class="content-card">
-          <h3>{{ event.title }}</h3>
-          <p>{{ event.desc }}</p>
-          <button
-            v-if="event.lat && event.lng"
-            @click.stop="openGoogleMaps(event.lat, event.lng)"
-            class="nav-btn"
-          >
-            Google導航
-          </button>
+      <div v-for="(item, index) in schedule[currentDay]" :key="index" class="timeline-item">
+        <div class="time">{{ item.time }}</div>
+        <div class="content">
+          <a :href="item.mapLink" target="_blank" class="place">{{ item.title }}</a>
+          <p class="description">{{ item.description }}</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-
-const schedule = ref({
-  'Day 1': [
-    {
-      time: '09:00',
-      title: '早餐：上島咖啡',
-      desc: '品嚐道地日式早餐',
-      lat: 35.6895,
-      lng: 139.6917
-    },
-    {
-      time: '10:30',
-      title: '東京巨蛋城',
-      desc: '遊樂園與購物中心',
-      lat: 35.7056,
-      lng: 139.7519
-    },
-    {
-      time: '13:00',
-      title: '午餐：利久牛舌',
-      desc: '仙台人氣牛舌專賣店',
-      lat: 35.709,
-      lng: 139.753
-    }
-  ],
-  'Day 2': [
-    {
-      time: '09:30',
-      title: '早餐：便利商店咖啡',
-      desc: '簡單快速出發',
-      lat: 35.6905,
-      lng: 139.7000
-    },
-    {
-      time: '11:00',
-      title: '小石川植物園',
-      desc: '自然生態之旅',
-      lat: 35.718,
-      lng: 139.744
-    },
-    {
-      time: '14:00',
-      title: '六義園',
-      desc: '庭園漫步',
-      lat: 35.715,
-      lng: 139.748
-    }
-  ]
-})
-
-const days = Object.keys(schedule.value)
-const currentDay = ref(days[0])
-
-const openGoogleMaps = (lat, lng) => {
-  const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
-  window.open(url, '_blank')
-}
-</script>
-
 <style scoped>
-.schedule-container {
+.timeline-wrapper {
   padding: 20px;
 }
-.days-switch {
+.day-buttons {
   margin-bottom: 20px;
 }
-.days-switch button {
-  margin: 5px;
-  padding: 6px 12px;
-  border: none;
+.day-buttons button {
+  margin-right: 8px;
+  padding: 6px 14px;
+  background: white;
+  border: 1px solid #f6d5d8;
+  color: #f6d5d8;
   border-radius: 20px;
-  background-color: #eee;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
-.days-switch button.active {
-  background-color: #7bdacc;
+.day-buttons button.active,
+.day-buttons button:hover {
+  background-color: #a6dce3;
   color: white;
+  border-color: #a6dce3;
 }
+
 .timeline {
-  position: relative;
-  margin: 20px 0;
-  border-left: 4px solid #cce3dc;
-}
-.timeline-item {
-  position: relative;
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-left: 3px solid #f6d5d8;
   padding-left: 20px;
 }
+
+.timeline-item {
+  position: relative;
+}
+
 .timeline-item::before {
   content: '';
   position: absolute;
   left: -10px;
-  top: 8px;
-  width: 16px;
-  height: 16px;
-  background-color: #7bdacc;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  background-color: #f6d5d8;
   border-radius: 50%;
-  border: 2px solid white;
 }
+
 .time {
   font-weight: bold;
-  color: #555;
+  color: #a6dce3;
 }
-.content-card {
-  background: #fff;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  margin-top: 5px;
+
+.content {
+  margin-left: 10px;
 }
-.nav-btn {
-  margin-top: 10px;
-  padding: 6px 12px;
-  background-color: #4285f4;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+
+.place {
+  font-size: 18px;
+  font-weight: bold;
+  color: #f78fb3;
+  text-decoration: none;
 }
-.nav-btn:hover {
-  background-color: #3367d6;
+
+.place:hover {
+  text-decoration: underline;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
 }
 </style>
